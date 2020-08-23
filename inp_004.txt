@@ -1,0 +1,51 @@
+** Binomial Number mechanics
+
+*Time, 0, 20000, 1000 
+
+
+*Element, 12
+ virus , 500, Black 
+ cell, 100000, Green
+ virusCell, 0, Yellow
+ new_Virus , 0, Gray 
+ macrophage, 5000, Orange
+ macrophageActive, 0, Green 
+ macrophageWithVirus, 0, Yellow
+ dendricCell, 500, Blue
+ dendricMHC, 0, Red
+ IFN, 0, Blue 
+ naiveTh1, 100, Green 
+ activeTh1, 0, Gray 
+*Element End
+
+*Reaction, 13, 1000000
+ r1_1, 001, 1, virusCell, 0.07, 2, new_Virus
+ r1_1, 002, 1, new_Virus, 0.02, 1, virus
+ r1_1, 003, 1, macrophageWithVirus, 0.9, 1, macrophage
+ r1_1, 004, 1, dendricMHC, 0.0002, 1, dendricCell
+ r1_1, 005, 1, macrophageActive, 0.002, 1, macrophage
+ r1_1, 006, 1, activeTh1, 0.001, 1, naiveTh1
+ r1_0, 007, 1, IFN, 0.01
+ r1_2, 001, 1, activeTh1, 0.6, 2, IFN, 1, activeTh1
+ r2_1, 001, 1, virus, 1, cell, 0.0075, 1, virusCell
+ r2_1, 002, 1, virus, 1, dendricCell, 0.15, 1, dendricMHC
+ r2_1, 003, 1, macrophageActive, 1, virus, 3.0, 1, macrophageWithVirus
+ r2_1, 004, 1, macrophage, 2, IFN, 2.0, 1, macrophageActive
+ r2_2, 001, 1, naiveTh1, 1, dendricMHC, 0.3, 1, activeTh1, 1, dendricMHC
+*Reaction End
+
+*Plot, 6
+ virus, new_Virus
+ cell
+ macrophage, macrophageActive, macrophageWithVirus
+ dendricMHC, dendricCell
+ IFN
+ activeTh1, naiveTh1
+*Plot End
+
+
+*comments
+2020.8.15
+
+
+
