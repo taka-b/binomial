@@ -3,7 +3,7 @@
 """
 Created on Sat Aug 15 15:05:35 2020
 
-@author: Takashi Sato
+@author: takashi
 """
 
 import matplotlib.pyplot as plt
@@ -26,10 +26,12 @@ class Utility:
         plt.legend(loc='best')
         plt.show()
         
-    def appendList(self, ls, el):
+    def appendList(self, line_sprit, allElements):
         l = []       
-        for em in ls:
-            l.append(el[em.split()[0]])   
-            
+        for plotElement in line_sprit:            
+            if allElements.get(plotElement) == None:
+                pass
+            else:
+                l.append(allElements.get(plotElement))            
         self.plotList.append(l)
-#        print(self.plotList)
+
