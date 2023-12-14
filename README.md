@@ -1,6 +1,6 @@
 ﻿Binomial
 
---Natural Number Simulation Algorithm for Complex System--
+--Natural Number Simulation for Complex System--
 
 
 Description
