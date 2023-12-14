@@ -51,7 +51,7 @@ Hereafter, these files will be referred to as program files.
 
 These codes were created as of September 2023 on Spyder IDE 5.4.3 running on Ubuntu 22.04.2 LTS. 
 The program is operable on both Windows and Linux (however, some input files are only compatible with Linux).
-  
+In addition to these files, binimial_v016.zip contains input files and their execution results.  
 
 2. Folder Preparation
 
