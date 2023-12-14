@@ -1,0 +1,13 @@
+{
+    "Comment section": {
+        "comment": "Select 'YES' or 'NO'",
+        "option": ""
+    },
+    "settings": {
+        "EntropyCalc": "NO",
+        "CSV_OUTPUT": "YES",
+        "FIG_OUTPUT": "YES",
+        "RestartFile": "NO",
+        "ProcessPoolExecutor": "NO"
+    }
+}
