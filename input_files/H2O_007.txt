@@ -1,0 +1,21 @@
+** H2O_007.txt
+** Use Linux version Python for calculating !
+
+*Time, 
+       0,  10000,       10000,      10000,    1000,    msec
+
+*Element
+** https://itsakura.com/html-color-codes 
+H2O, 2e19, Blue, 4
+H+,   600, 	DeepPink, 3
+OH-,  600, 	DarkTurquoise, 2
+
+*Reaction, 2e19, random
+r1_2, 200, 1, H2O,        1e-10, 1, H+, 1, OH-
+r2_1, 300, 1, H+, 1, OH-,   1e4, 1, H2O
+
+
+*Plot, log
+H2O, OH-, H+
+
+

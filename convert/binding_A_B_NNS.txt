@@ -1,0 +1,20 @@
+# A text file for NNS from SBML: binding_A_B.xml
+
+*Time
+0, 100, 10, 50, 1, seconds
+
+*Element
+A, 100000.0
+B, 50000.0
+C, 0.0
+
+*Reaction, 9900000000.0
+r2_1, reaction1, 1, A, 1, B, 999, 1, C
+r1_2, reaction2, 1, C, 999, 1, A, 1, B
+
+*Plot, log
+A, B, C
+
+# Those are rules in SBML file.
+# However, the NNS does not have rules for these, so they are commented out.
+

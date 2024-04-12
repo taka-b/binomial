@@ -1,0 +1,30 @@
+
+** https://Binomial-simulation.com
+
+*Time, 
+** start,  end, console out, plot out,  csv out,  unit
+       0, 20000,  10000,   10000, 100,  msec
+
+*Element
+rna,  100000, Magenta
+mRNA, 0, Green
+amino, 100000, Cyan
+protain, 0, Gray
+stimulus, 100, Orange
+DNA, 1, blue
+DNA_d,  0, Red
+ribosome, 100,  
+
+*Reaction, 1000000
+r3_3, 100, 1, DNA, 1, stimulus, 10, rna, 1000, 1, DNA, 1, stimulus, 1, mRNA
+r3_3, 200, 1, mRNA, 1, ribosome, 10, amino, 10, 1, mRNA, 1, ribosome, 1, protain 
+r1_0, 300, 1, stimulus, 0.0001  
+r1_0, 400, 1, mRNA, 0.0002
+r2_1, 500, 1, DNA, 1, protain, 20, 1, DNA_d 
+
+*Plot, linear
+ rna, amino
+ mRNA, protain 
+ DNA, DNA_d
+ stimulus
+

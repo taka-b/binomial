@@ -1,0 +1,18 @@
+
+** https://Binomial-simulation.com
+
+*Time, 
+  0, 2000,   500,      2000,    200,   days 
+
+*Element
+S, 10000000, Blue, .
+I, 20, Green, 4
+R, 0, Orange, s
+
+*Reaction, 10000000 
+r2_1, 100, 1, S, 1, I, 0.06, 2, I
+r1_1, 200, 1, I, 0.025, 1, R
+r1_1, 300, 1, R,  0.02, 1, S
+
+*Plot, linear
+S, I, R

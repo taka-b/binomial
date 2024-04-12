@@ -1,0 +1,25 @@
+
+** https://Binomial-simulation.com
+
+*Time, 
+** start,  end, console out, plot out,  csv out,  unit
+       0, 10000,  2000,  2000, 1000, generations
+
+*Element
+N, 10000, Blue
+P, 500, Green
+PD, 0, Orange
+PC, 0, Red
+
+*Reaction, 2000000, random
+r1_1, 100, 1, N, 0.02, 2, N
+r2_1, 200, 1, P, 10, N, 10, 1, PD
+r1_2, 300, 1, PD, 2, 1, P, 1, PC
+r1_1, 400, 1, PC, 2, 1, P
+r1_0, 500, 1, P, 0.015
+
+*Plot, log
+** second item is "linear" or "log".
+N, P
+PD, PC
+

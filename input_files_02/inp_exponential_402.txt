@@ -1,0 +1,17 @@
+
+** https://Binomial-simulation.com
+
+*Time, 
+** start,  end, console out, plot out, csv out, unit
+       0, 100000,  10000,   10000,  10000,  steps
+
+*Element
+x, 10, Blue
+y, 0, Orange
+
+*Reaction, 1000000
+r1_1, 100, 1, x, 0.0001, 2, x
+
+*Plot, log
+** second item is "linear" or "log".
+x
