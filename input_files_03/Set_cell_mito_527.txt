@@ -1,0 +1,28 @@
+
+** 2024.1.11 from Set_cell_mito_526_08.txt
+
+*Time,     
+0,  60000,   6000,   60000,    10,   msec
+
+*Element
+H2O, 1e13, Blue, 4
+OH-,  1e6, DarkTurquoise, 2
+H+,   1e6, DeepPink, 3
+
+*ElementInOut
+glucose, 0, gold, p, , type-1, 1, 10000
+O2,      0, red,  3, , type-1, 1, 20000
+
+*Reaction, 1e13
+r1_2, 100, 1, H2O,        1e-10, 1, H+, 1, OH-
+r2_1, 110, 1, H+, 1, OH-,   1e4, 1, H2O
+
+*Set_01
+Cell, Set01_527.txt, 1
+
+*Set_02
+Mito, Cell, 1, Set02_527.txt, 1
+
+*Plot, log
+H2O, OH-, H+
+glucose, O2

@@ -1,0 +1,71 @@
+** 2023.11.15
+** from Set_H+Na+_032_test.txt
+** 2023.11.23
+** from Channel_pump_005.txt
+** 
+*Time 
+0,  100000,   10000,   100000,   10,    micro sec
+
+*Element
+H2O, 1.e13, Blue, 4
+OH-, 1e6, DarkTurquoise, 2
+H+, 1e6, DeepPink, 3
+K+, 0.8e8, purple, s
+Na+, 0.8e8, orange, ^
+
+*Reaction, 2.e13
+r1_2, 100, 1, H2O, 1e-10, 1, H+, 1, OH-
+r2_1, 200, 1, H+, 1, OH-, 1e4, 1, H2O
+
+** *Set_01
+** cell, Set01_pump_007.txt, 1
+
+*Plot, log
+H2O, OH-, H+
+
+*Plot
+Na+, K+
+
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, cell_1
+** ************************************ 
+** 2023.11.15
+** from Set01_H+Na+_030.txt
+** 2023.11.23
+** from cell_005.txt
+
+*Element
+H2O:=cell_1,  1.e13,  Blue,  4
+OH-:=cell_1,  1e6,  	DarkTurquoise,  2
+H+:=cell_1,  1e6,  	DeepPink,  3
+K+:=cell_1,  1.2e8,     purple,  s
+Na+:=cell_1,  1.2e8,     orange,  ^
+ATP:=cell_1,  1e12,  green,  4
+ADP:=cell_1,  0,     LightPink,  |
+Pi:=cell_1,  0,      BlueViolet,  _
+Na+_channel:=cell_1,  200,  Salmon,   .
+K+_channel:=cell_1,   300,  Violet,   .
+Na+_K+_pump:=cell_1,  500,  RosyBrown,   .
+
+*Reaction,  2.e13
+r1_2,  100:=cell_1,  1,  H2O:=cell_1,  1e-10,  1,  H+:=cell_1,  1,  OH-:=cell_1
+r2_1,  200:=cell_1,  1,  H+:=cell_1,  1,  OH-:=cell_1,  1e4,  1,  H2O:=cell_1
+r2_2,  300:=cell_1,  1,  Na+_channel:=cell_1,  1e4,  Na+,     5e6,   1,  Na+_channel:=cell_1,  1e4,  Na+:=cell_1
+r2_2,  400:=cell_1,  1,  Na+_channel:=cell_1,  1e4,  Na+:=cell_1,   5e6,   1,  Na+_channel:=cell_1,  1e4,  Na+
+r2_2,  500:=cell_1,  1,  K+_channel:=cell_1,   1e4,  K+,      5e6,   1,  K+_channel:=cell_1,   1e4,  K+:=cell_1
+r2_2,  600:=cell_1,  1,  K+_channel:=cell_1,   1e4,  K+:=cell_1,    5e6,   1,  K+_channel:=cell_1,   1e4,  K+
+rM,    700:=cell_1,   1,  Na+_K+_pump:=cell_1,  2e2,  K+,  3e2,  Na+:=cell_1,  1e2,  ATP:=cell_1,  1,  H2O:=cell_1
+              2.5e7
+              1,  Na+_K+_pump:=cell_1,  2e2,  K+:=cell_1,  3e2,  Na+,  1e2,  ADP:=cell_1,  1e2,  Pi:=cell_1
+
+*Plot,  log
+H2O:=cell_1,  OH-:=cell_1,  H+:=cell_1
+
+*Plot
+Na+:=cell_1,  K+:=cell_1
+
+

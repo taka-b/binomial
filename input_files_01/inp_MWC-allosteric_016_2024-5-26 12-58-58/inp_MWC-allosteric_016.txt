@@ -1,0 +1,29 @@
+
+** https://Binomial-simulation.com
+** Use Linux version Python for calculating !
+
+*Time, 
+** start,  end, console out, plot out, csv out,   unit
+       0, 10000,       5000,     10000,  10,    steps
+
+*Element
+ Hb,    1e10, Black 
+ O2,    1e12, Yellow
+ Hb-O2,    0, Blue
+ Hb-(O2)2, 0, Green 
+ Hb-(O2)3, 0, Orange
+ Hb-(O2)4, 0, Red
+
+*Reaction, 1e14
+ r2_1, 100, 1, Hb,       1, O2,   0.1, 1, Hb-O2  
+ r2_1, 200, 1, Hb-O2,    1, O2,   0.5, 1, Hb-(O2)2
+ r2_1, 300, 1, Hb-(O2)2, 1, O2,  10.0, 1, Hb-(O2)3 
+ r2_1, 400, 1, Hb-(O2)3, 1, O2,  50.0, 1, Hb-(O2)4
+
+*Plot, log
+ Hb, O2
+ Hb-O2, Hb-(O2)2, Hb-(O2)3, Hb-(O2)4
+
+
+
+

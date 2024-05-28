@@ -1,0 +1,56 @@
+** from prokaryote_001.txt
+** 2023.7.6 from c_009.txt
+** 2023.7.6 data from Plant Physiology and Development
+** 2023.11.23 from Set01_cytosol_807.txt
+** 2023.12.23 from Set01_cytosol_509.txt
+** 2024.1.8 from Set01_cytosol_518.txt
+
+*Element
+H2O:=,     1e13, Blue, 4
+OH-:=,      1e5, DarkTurquoise, 2
+H+:=,       1e5, DeepPink, 3
+glucose:=,    0, darkkhaki, 3
+glucose_channel:=, 50, MediumOrchid, >
+glucose_in:=, 0, indigo, d
+O2:=,         0, red, 3
+O2_in:=,      0, darkmagenta, x
+Pyruvate:=,   0, darkgray, H
+Pyruvate-:=,  0, gray, H
+Pyruvate_created:=,   0, salmon, H
+ATP:=,   1e8, green, 4
+ADP:=,   1e8, LightPink, |
+Pi:=,    1e8, BlueViolet, _
+Pi-:=,     0, Violet, D
+NAD+:=,  1e7, Orange, s
+NADH:=,    0, chocolate, +
+Lactic:=,  0, greenyellow, o
+
+*Reaction, 1e13
+r1_2, 100:=, 1, H2O:=,         1e-6, 1, H+:=, 1, OH-:=
+r2_1, 110:=, 1, H+:=, 1, OH-:=, 1e8, 1, H2O:=
+
+r2_3, 300:=, 1, glucose_channel:=, 100, glucose, 1e9, 1, glucose_channel:=, 100, glucose:=, 100, glucose_in:=
+
+r1_2, 400:=, 100, O2, 1e3, 100, O2:=, 100, O2_in:=
+
+rM,   500:=, 1, glucose:=, 2, ATP:=, 4, ADP:=, 4, Pi:=, 2, NAD+:=
+             1e7
+             2, Pyruvate-:=, 2, ADP:=, 2, Pi:=, 4, ATP:=, 2, NADH:=, 2, H+:=, 2, Pyruvate_created:=
+
+r1_2, 600:=, 1, Pyruvate:=, 1e15, 1, Pyruvate-:=, 1, H+:=
+
+r3_2, 700:=, 1, Pyruvate-:=, 1, NADH:=, 2, H+:=, 1e5, 1, Lactic:=, 1, NAD+:= 
+
+r2_2, 800:=, 1, ATP:=, 1, H2O:=, 1e-3, 1, ADP:=, 1, Pi:=
+
+
+*Plot, log
+H2O:=, OH-:=, H+:=
+ADP:=, Pi:=, ATP:=
+glucose:=, glucose_in:=
+Pyruvate_created:=, Pyruvate-:=
+NAD+:=, NADH:=, Lactic:=
+
+*Plot
+glucose_in:=, Pyruvate_created:=
+NAD+:=, NADH:=, Lactic:= 

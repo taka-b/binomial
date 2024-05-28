@@ -1,0 +1,30 @@
+** 2023.11.15
+** from Set_H+Na+_032_test.txt
+** 2023.11.23
+** from Channel_pump_005.txt
+
+*Time 
+0,  100000,   10000,   100000,   10,    micro sec
+
+*Element
+H2O, 1.e13, Blue, 4
+OH-, 1e6, DarkTurquoise, 2
+H+, 1e6, DeepPink, 3
+K+, 0.8e8, purple, s
+Na+, 0.8e8, orange, ^
+
+*Reaction, 2.e13
+r1_2, 100, 1, H2O, 1e-10, 1, H+, 1, OH-
+r2_1, 200, 1, H+, 1, OH-, 1e4, 1, H2O
+
+*Set_01
+cell, Set01_pump_007.txt, 1
+
+*Plot, log
+H2O, OH-, H+
+
+*Plot
+Na+, K+
+
+
+
