@@ -1,10 +1,3 @@
-** from prokaryote_001.txt
-** 2023.7.6 from c_009.txt
-** 2023.7.6 data from Plant Physiology and Development
-** 2023.11.23 from Set01_cytosol_807.txt
-** 2023.12.23 from Set01_cytosol_509.txt
-** 2024.1.8 from Set01_cytosol_518.txt
-** 2024.1.8 from Set01_526_02.txt
 
 *Element
 H2O:=,     1e13, Blue, 4
@@ -38,12 +31,12 @@ r2_3, 300:=, 1, glucose_channel:=, 1e3, glucose, 1e9, 1, glucose_channel:=, 1e3,
 
 r1_2, 400:=, 100, O2, 1e3, 100, O2:=, 100, O2_in:=
 
-# McKeeがほぼ同じ記述！
+# McKee!
 rM,   500:=, 1, glucose:=, 2, ATP:=, 4, ADP:=, 4, Pi:=, 2, NAD+:=
              1e7
              2, Pyruvate-:=, 4, H+:=, 2, ADP:=, 2, Pi:=, 4, ATP:=, 2, NADH:=, 2, H2O:=, 2, Pyruvate_created:=
 
-# これは、なくてもよいかも
+# 
 ** r1_2, 600:=, 1, Pyruvate:=, 1e15, 1, Pyruvate-:=, 1, H+:=
 
 r3_2, 700:=, 1, Pyruvate-:=, 1, NADH:=, 2, H+:=, 1e8, 1, Lactic:=, 1, NAD+:=

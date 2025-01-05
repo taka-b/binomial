@@ -1,0 +1,36 @@
+{
+    "Comment section": {
+
+        "comment": "Select 'YES' or 'NO' at YES-NO settings",
+
+        "option": ""
+    },
+
+    "settings": {
+
+        "making_folder":  "YES", 
+        
+        "InformationCalc": "NO",
+
+        "EntropyCalc": "NO",
+
+        "n_p_Binomial": "YES",
+
+        "CSV_OUTPUT": "YES",
+        
+        "FIG_OUTPUT": "YES",
+
+        "FiguersFromCSV_interval": "YES",
+        
+        "RestartFile": "YES",
+
+        "RestartFile_period": 10000,
+        
+        "Matplotlib(1) or Seaborn(2)": 2,
+
+        "Seaborn linewidth": 1.5,
+
+        "Optimization": "NO"
+
+    }
+}

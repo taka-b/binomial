@@ -1,8 +1,3 @@
-** 2023.11.23 from Set02_mitochondria_812.txt
-** 2024.1.8 from Set02_mitochondria_517.txt
-** 2024.1.11 from Set02_517.txt
-** 2024.1.17 from Set02_523_09.txt
-** 2024.1.21 from Set02_526_06.txt
 
 *Element
 H2O::,        1e11, Blue, 4

@@ -6,8 +6,8 @@ Created on Sun Nov 21 11:35:34 2021
 @author: takashi
 """
 import sys
-import random
-import collections
+# import random
+# import collections
 
 class createReaction:
     

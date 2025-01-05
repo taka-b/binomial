@@ -1,0 +1,91 @@
+*Element
+H2O::,        1e11, Blue, 4
+OH-::,         1e3, darkturquoise, 2
+H+::,          1e3, deeppink, 3
+H+_inter::,    1e3, hotpink, 3
+O2::,                0, red, 3
+O2_in::,             0, darkmagenta, x
+CO2::,               0, tomato,  *
+ATP::,               0, DeepPink, 4
+ATP_created::,       0, darkgray, 2
+ADP::,             1e7, LightPink, |
+GDP::,           0.5e7, mediumspringgreen, 4
+GTP::,               0, sienna, 4
+Pi::,            1.5e7, BlueViolet, _
+NAD+::,            1e7, Orange, s
+NADH::,              0, chocolate, +
+NADH_created::,      0, red, +
+Pyruvate-::,         0, green, H
+Pyruvate-_in::,      0, black, .
+CoA-SH::,          1e7, MediumOrchid, +
+Acetyl_CoA::,        0, green, 3
+FAD::,           0.8e7, magenta, p
+FADH2::,             0, yellowgreen, 2
+FADH2_created::,     0, green, 2
+
+Pyruvate_transport::, 2000, darkgreen, H
+ATP_synthase::,       2000, RosyBrown,  .
+ADP_ATP_transport::,    2000, LightGreen, .
+NADH_shuttle::,     2000,  cyan, p
+Pi_transport::,         2000, magenta, 3
+Commp1-3-4::,       2000, dodgerblue, * 
+Commp2-3-4::,       2000, dodgerblue, * 
+
+*Reaction, 1e11
+r1_2, 100::, 1, H2O::,         1e-6, 1, H+::, 1, OH-::
+r2_1, 110::, 1, H+::, 1, OH-::, 1e8, 1, H2O::
+
+rM,   300::, 1, Pyruvate_transport::, 1e3, Pyruvate-:=, 1e3, H+:=
+             3e5
+             1, Pyruvate_transport::, 1e3, Pyruvate-::, 1e3, H+::, 1e3, Pyruvate-_in::
+
+rM,   400::, 1, Pyruvate-::, 1, CoA-SH::, 1, NAD+::
+             1e8
+             1, Acetyl_CoA::, 1, NADH::, 1, CO2::
+
+rM,   500::, 1, Acetyl_CoA::, 3, NAD+::, 1, GDP::, 1, Pi::, 3, H2O::, 1, FAD::
+             1e8 
+             1, CoA-SH::, 3, NADH::, 3, H+::,1, GTP::, 3, CO2::, 1, FADH2::, 1, FADH2_created:: 
+
+r2_2, 510::, 1, GTP::, 1, ADP::, 1e10, 1, GDP::, 1, ATP:: 
+
+rM,   600::, 100, NADH::,1200, H+::, 50, O2::, 1, Commp1-3-4::
+             1e10
+             100, NAD+::, 100, H+::, 1000, H+_inter::, 100, H2O::, 1, Commp1-3-4::
+
+rM,   610::, 200, FADH2::,1600, H+::, 100, O2::, 1, Commp2-3-4::
+             1e10
+             200, FAD::, 400, H+::, 1200, H+_inter::, 200, H2O::, 1, Commp2-3-4::
+
+rM,   620::, 1200, H+_inter::, 400, ADP::, 400, Pi::, 1, ATP_synthase::
+             1e10
+             1200, H+::, 400, ATP::, 400, H2O::, 1, ATP_synthase::, 400, ATP_created::
+
+rM,   700::, 1e2, NADH:=, 1e2, H+:=, 1e2, NAD+::, 1, NADH_shuttle:: 
+             1e10
+             1e2, NADH::, 1e2, H+::, 1e2, NAD+:=, 1, NADH_shuttle::   
+
+r3_3, 800::, 1, Pi_transport::, 100, Pi:=, 100, H+_inter::, 1e15, 1, Pi_transport::, 100, Pi::, 100, H+::
+
+
+rM,   900::,  1, ADP_ATP_transport::, 100, ATP::, 100, ADP:=
+              1e13
+              1, ADP_ATP_transport::, 100, ATP:=, 100, ADP::
+
+r1_1, 1100::, 100, O2:=, 1e13, 100, O2::
+
+*Plot, log
+** H2O::, OH-::
+H+::, H+_inter::, OH-::
+Pyruvate-::, Pyruvate-_in::, O2::
+ATP::, ATP_created::
+ADP::, Pi::, CoA-SH::, Acetyl_CoA::
+NAD+::, GDP::, FAD::
+NADH::, GTP::, FADH2::
+FADH2::, FADH2_created::  
+
+*Plot
+ATP_created::,  CO2::
+
+
+

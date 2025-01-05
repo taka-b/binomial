@@ -1,0 +1,37 @@
+*Element
+H2O:=,     1e13, Blue, 4
+OH-:=,      1e5, DarkTurquoise, 2
+H+:=,       1e5, DeepPink, 3
+glucose:=,              0, gold, 3
+glucose_in:=,           0, indigo, d
+glucose_transport:=, 1000, darkkhaki, >
+O2:=,                   0, red,  o
+Pyruvate-:=,  0, gray, H
+Pyruvate_created:=,   0, salmon, H
+ATP:=,   1e8, green, 4
+ADP:=,   1e8, LightPink, |
+Pi:=,    1e8, BlueViolet, _
+NAD+:=,  1e8, Orange, s
+NADH:=,    0, chocolate, +
+Lactic:=,  0, greenyellow, o
+Lactic_created:=,  0, green, 3
+ 
+*Reaction, 1e13
+r1_2,  10:=, 1, H2O:=,         1e-6, 1, H+:=, 1, OH-:=
+r2_1,  20:=, 1, H+:=, 1, OH-:=, 1e8, 1, H2O:=
+r2_3, 100:=, 1, glucose_transport:=, 1e3, glucose, 9e9, 1, glucose_transport:=, 1e3, glucose:=, 1e3, glucose_in:=
+
+r1_1, 200:=, 100, O2, 1e3, 100, O2:=
+rM,   300:=, 1, glucose:=, 2, ATP:=, 4, ADP:=, 4, Pi:=, 2, NAD+:=
+             1e9
+             2, Pyruvate-:=, 2, ADP:=, 2, Pi:=, 4, ATP:=, 2, NADH:=, 2, H+:=, 2, Pyruvate_created:= 
+r3_3, 400:=, 1, Pyruvate-:=, 1, NADH:=, 2, H+:=, 1e7, 1, Lactic:=, 1, NAD+:=, 1, Lactic_created:= 
+r2_2, 500:=, 1, ATP:=, 1, H2O:=, 1e-3, 1, ADP:=, 1, Pi:=
+
+*Plot
+glucose:=, O2:=
+glucose_in:=, Pyruvate_created:=
+NAD+:=, NADH:=
+
+*Plot, log
+NAD+:=, NADH:=

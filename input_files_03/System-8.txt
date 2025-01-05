@@ -1,0 +1,17 @@
+** paper_2024_10_13.txt
+
+*Time, 
+0,  120000,   10000,   120000,    100,    msec
+ 
+*ElementInOut
+glucose, 0, gold, p, , type-1, 1, 1e4
+O2,      0, red,  3, , type-1, 1, 2e4
+ 
+*Set_01
+Cell, Set01_System-6.txt, 1
+
+*Set_02
+Mitochondria, Cell, 1, Set02_System-8.txt, 1
+ 
+*Plot
+glucose, O2
