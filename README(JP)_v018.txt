@@ -37,26 +37,26 @@
 そして、このプログラムを動かすためには、１つの入力ファイルが必要です。
 
 
-    1.1 binomial_v018.py (メインプログラム)
+    1.1 binomial_v018_02.py (メインプログラム)
         メインコードで、入力ファイルの読み込みと、計算の実行プロセスが含まれています。 
-    1.2 binomial_parameters_07.json
+    1.2 binomial_parameters_11.json
          計算上の条件と、結果の設定を決めるパラメータが含まれている。
-    1.3 element_41.py
+    1.3 element_43.py
         計算要素を定義するコードが含まれています。 入力ファイルの*Elementで定義される要素名、初期の数などを元に
         要素オブイジェクトが作られます。
-    1.4 reaction_77.py
+    1.4 reaction_83.py
         反応式を計算するためのコードが含まれています。入力ファイルの*Reactionで反応式が定義されます。
-    1.5 utility_69.py
+    1.5 utility_75.py
     　　結果グラフの出力や、csvファイルへの出力などのユーティリティ関係のコードが含まれます。
-    1.6 setting_35.py
+    1.6 setting_39.py
          入力ファイルの読み込みに関係したコードが含まれます。
-    1.7 utility_functions_02.py
+    1.7 utility_functions.py
          設定に必要な関数が含まれています。
     1.8 polymer_13.py
          工事中です。
     1.9 reactionManage_07.py
          工事中です。
-    1.10 setManage_02.py
+    1.10 setManage_04.py
          工事中です。
 
  これらのコードは、2025年1月時点、Ubuntu 22.04.2 LTS　上の Spyder IDE 5.4.3で作りました。  
@@ -298,11 +298,11 @@
                                              図のファイルタイプは、pngです。 
 　　　　　　　　　　　　　　　　　　　　    もし、出力させない場合は "NO"を選択してください。
 
-        "FiguersFromCSV_interval": ["YES" or "NO"], "YES"を選択すると、*Timeのcsv-file out intervalで設定した間隔で
+        "Fig_from_CSV":     ["YES" or "NO"], "YES"を選択すると、*Timeのcsv-file out intervalで設定した間隔で
                                                     プロットが作図されます。"NO"を選択すると、stepが1毎のデータを使って
                                                     作図されます。計算stepが多いときは、"YES"の選択が推奨です。
      
-        "RestartFile";             ["YES" or "NO"], 入力ファイルに対して計算された最終の要素の値を初期値とした、
+        "RestartFile";      ["YES" or "NO"], 入力ファイルに対して計算された最終の要素の値を初期値とした、
                                                     リスタート用のファイルが作成されます。
                                                     例えば、test_059.txtに対しては、test_059_Re.txt
                                                     が、入力ファイルと同じフォルダ内に作成されます。
@@ -317,6 +317,9 @@
        "Seaborn linewidth":   [0.1 < decimal < 10], Seabornでのライン幅の設定値です。0.1から10の間が推奨値です。
         
        "Optimization":             ["YES" or "NO"], 今はまだ、"NO"を選択のこと。
+
+       "Reaction_Order":   [ 'ordered' or 'random'], 1ステップ中での反応式の計算順序
+
 
 
 4. 入力ファイルの構成 2　（オプションの設定項目） (例. test_059.txt)
@@ -722,7 +725,7 @@ Figure5.は、下記ファイルにおける各要素の移動反応の様子を
             ターミナル(例えば、Anaconda Powershell Prompt)を開き、ディレクトリをプログラムファイルのあるディレクトリに変更します。
             次のように端末にコマンドラインを記述します。
            
-               > python binomial_v018.py inp_immune_323.txt
+               > python binomial_v018_02.py inp_immune_323.txt
                   
             改行を返すと、プログラムが開始されます。
             結果ファイルは、1.spyderのように新しく作成されたホルダーに配置されます。

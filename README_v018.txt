@@ -39,27 +39,27 @@
   These files are collectively referred to as program files. 
   Additionally, one input file is required to run the program.
 
-  1.1. binomial_v018.py (Main Program)
+  1.1. binomial_v018_02.py (Main Program)
     This is the main code that includes the process of reading the input file and executing calculations.
 
-  1.2. binomial_parameters_06.json
+  1.2. binomial_parameters_11.json
     This file contains parameters that determine the conditions for the calculations and the settings for the results.
 
-  1.3. element_41.py
+  1.3. element_43.py
     This code defines the calculation elements. Element objects are created based on the element names and 
     initial quantities defined in the *Element section of the input file.
 
-  1.4. reaction_77.py
+  1.4. reaction_83.py
     This code is used to calculate the reaction equations. 
     The reaction equations are defined in the *Reaction section of the input file.
 
-  1.5. utility_69.py
+  1.5. utility_75.py
     This file contains utility-related code for outputting result graphs and CSV files.
 
-  1.6. setting_35.py
+  1.6. setting_39.py
     This code is related to reading the input file.
 
-  1.7. utility_functions_02.py
+  1.7. utility_functions.py
     This file contains functions necessary for the settings.
 
   1.8. polymer_13.py
@@ -68,7 +68,7 @@
   1.9. reactionManage_07.py
     Under construction.
 
-  1.10. setManage_02.py
+  1.10. setManage_04.py
     Under construction.
 
   These codes were developed using Spyder IDE 5.4.3 on Ubuntu 22.04.2 LTS as of Junuary 2025. 
@@ -307,7 +307,7 @@
                                         The file type for the plots is png.
                                         Select "NO" if you do not want to output plots.
 
-    "FiguresFromCSV_interval": ["YES" or "NO"], If "YES" is selected, plots will be created at intervals set by the csv-file out interval in *Time.
+    "Fig_from_CSV":    ["YES" or "NO"], If "YES" is selected, plots will be created at intervals set by the csv-file out interval in *Time.
                                                 If "NO" is selected, plots will be created using data from every step.
                                                 Selecting "YES" is recommended when there are many calculation steps.
      
@@ -323,6 +323,9 @@
     "Seaborn linewidth": [0.1 < decimal < 10], The line width setting for Seaborn. Values between 0.1 and 10 are recommended.
         
     "Optimization":     ["YES" or "NO"], For now, please select "NO."
+
+    "Reaction_Order":   [ 'ordered' or 'random'], Calculation order for a reaction set
+
 
 
 4. Input File Structure 2 (Optional Settings) (e.g., test_059.txt)
@@ -734,7 +737,7 @@ This allows the representation of element inflow and outflow during the calculat
   Open a terminal (e.g., Anaconda Powershell Prompt) and change the directory to the one containing the program file. 
   Enter the following command in the terminal:           
 
-      > python binomial_v017.py inp_immune_323.txt
+      > python binomial_v018_02.py inp_immune_323.txt
                   
   Press Enter to start the program. Result files will be placed in a newly created folder, similar to the Spyder case.
 

@@ -1,0 +1,30 @@
+** paper_2024_10_13.txt
+
+*Time, 
+0,  600000,   10000,   300000,    1000,    msec
+
+*Element
+glucose,       0, gold, d
+O2,            0, red,  o
+glucose_total, 0, indigo, d
+O2_total,      0, salmon,  o
+ 
+*ElementInOut
+glucose_in, 0, indigo, p, , type-1, 1, 1e4
+O2_in,      0, chocolate,  3, , type-1, 1, 6e4
+
+*Reaction, 1e13
+r1_2, 100, 1, glucose_in, 1e99, 1, glucose, 1, glucose_total
+r1_2, 200, 1, O2_in,      1e99, 1, O2, 1, O2_total
+
+*Set_01
+Cell, figure_4B_2.txt, 1
+
+*Set_02
+Mitochondria, Cell, 1, figure_4C.txt, 2
+ 
+*Plot
+glucose, O2
+
+*Plot, log
+glucose, O2, glucose_total, O2_total

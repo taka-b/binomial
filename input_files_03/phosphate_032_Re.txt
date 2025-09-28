@@ -1,0 +1,46 @@
+** 2022.12.11
+** 2023.1.29
+** 2023.2.5
+** 2023.2.8 from Set_test_A_19.txt
+** 2023.6.11 from Set_membrane_004_07.txt
+
+*Time,
+0,  1000,   1000,   1000,    10,    usec
+
+*Element
+** https://itsakura.com/html-color-codes
+H2O, 200000031737234, Blue, 4
+OH-, 166, 	DarkTurquoise, 2
+H3PO4, 15560611237104, Green, *
+H2PO4_1-, 4439367901246, yellowgreen, 8
+HPO4_2-, 20861189, turquoise, 8
+PO4_3-, 461, dodgerblue, 8
+H+, 4439409625173, 	DeepPink, 3
+
+
+*ElementInOut
+** 0:element name, 1:initial number, 2:plot color, 3:real name, 4:type,
+** 5:schedule_type(0 or 1 or 2),
+** 6 to end; if type-0 (6:time, 7:amaunt, 8:time, 9:amaunt, -> -> ),
+**           if type-1 (6:interval, 7:amaunt),
+**           if type-2 (6:const, 7:amplitude, 8:period-time, 9:add-interval)
+** V, 5000, Blue, *, , type-0, 300, 500, 600, 500, 900, 500
+** W, 5000, Black, D, , type-1, 50, 200
+** T, 5000, Green, p, , type-2, 100, 100, 50, 10
+** S, 5000, magenta, 4, , type-1, 5, -50
+
+*Reaction, 2.2e14, random
+r1_2, 200, 1, H2O,              1e-11, 1, H+, 1, OH-
+r2_1, 300, 1, H+, 1, OH-,         1e3, 1, H2O
+r1_2, 400, 1, H3PO4,           3.5e-2, 1, H+, 1, H2PO4_1-
+r2_1, 500, 1, H+, 1, H2PO4_1-,  5.5e0, 1, H3PO4
+r1_2, 600, 1, H2PO4_1-,        2.5e-6, 1, H+, 1, HPO4_2-
+r2_1, 700, 1, H+, 1, HPO4_2-,   5.5e1, 1, H2PO4_1-
+r1_2, 800, 1, HPO4_2-,         0.8e-5, 1, H+, 1, PO4_3-
+r2_1, 900, 1, H+, 1, PO4_3-,    1.7e1, 1, HPO4_2-
+
+*Plot, log
+H2O, OH-, H+
+H3PO4, H2PO4_1-, HPO4_2-, PO4_3-
+
+

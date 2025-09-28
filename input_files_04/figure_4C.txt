@@ -1,0 +1,103 @@
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+
+*Element
+H2O::,            1e11, Blue, 4
+H2O_created::,       0, hotpink, 3
+OH-::,             1e3, darkturquoise, 2
+H+::,              1e3, deeppink, 3
+H+_inter::,          0, hotpink, 3
+H+_inter_created::,  0, pink, *
+O2::,                0, red, 3
+O2_in::,             0, darkmagenta, x
+CO2::,               0, tomato,  *
+ATP::,               0, DeepPink, 4
+ATP_created::,       0, lime, 2
+ADP::,             1e9, LightPink, |
+GDP::,             1e9, mediumspringgreen, 4
+GTP::,               0, sienna, 4
+Pi::,            1.5e9, BlueViolet, _
+NAD+::,            1e9, Orange, s
+NADH::,              0, chocolate, +
+NADH_created::,      0, red, +
+NADH_in::,           0, blue, +
+Pyruvate-::,         0, green, H
+Pyruvate-_in::,      0, black, .
+CoA-SH::,          1e9, MediumOrchid, +
+Acetyl_CoA::,        0, green, 3
+FAD::,             1e9, magenta, p
+FADH2::,             0, yellowgreen, 2
+FADH2_created::,     0, green, 2
+
+Pyruvate_transport::, 1000, darkgreen, H
+ATP_synthase::,       1000, RosyBrown,  .
+ADP_ATP_transport::,    1000, LightGreen, .
+NADH_shuttle::,     1000,  cyan, p
+Pi_transport::,         1000, magenta, 3
+Commp1-3-4::,       1000, dodgerblue, * 
+Commp2-3-4::,       1000, dodgerblue, * 
+
+*Reaction, 1e11
+r1_2,  10::, 1, H2O::,         1e-6, 1, H+::, 1, OH-::
+r2_1,  20::, 1, H+::, 1, OH-::, 1e4, 1, H2O::
+
+rM,   100::, 1, Pyruvate_transport::, 20, Pyruvate-:=, 20, H+:=
+             5e5
+             1, Pyruvate_transport::, 20, Pyruvate-::, 20, H+::, 20, Pyruvate-_in::
+
+rM,   200::, 1, Pyruvate-::, 1, CoA-SH::, 1, NAD+::
+             1e6
+             1, Acetyl_CoA::, 1, NADH::, 1, H+::, 1, CO2::, 1, NADH_created:: 
+
+rM,   210::, 1, Acetyl_CoA::, 3, NAD+::, 1, GDP::, 1, Pi::, 3, H2O::, 1, FAD::
+             1e7 
+             1, CoA-SH::, 3, NADH::, 3, H+::, 1, GTP::, 2, CO2::, 1, FADH2::, 1, FADH2_created::, 3, NADH_created:: 
+
+r2_2, 220::, 1, GTP::, 1, ADP::, 1e3, 1, GDP::, 1, ATP:: 
+
+rM,   300::, 100, NADH::, 1100, H+::, 50, O2::, 1, Commp1-3-4::
+             1e7
+             100, NAD+::, 1000, H+_inter::, 100, H2O::, 1, Commp1-3-4::, 100, H2O_created::, 1000, H+_inter_created::
+
+rM,   310::, 100, FADH2::,600, H+::, 50, O2::, 1, Commp2-3-4::
+             1e7
+             100, FAD::, 600, H+_inter::, 100, H2O::, 1, Commp2-3-4::, 200, H2O_created::, 1200, H+_inter_created::
+
+rM,   320::, 1200, H+_inter::, 300, ADP::, 300, Pi::, 1, ATP_synthase::
+             1e9
+             1200, H+::, 300, ATP::, 1, ATP_synthase::, 300, ATP_created::
+
+rM,   400::, 100, NADH:=, 100, H+:=, 100, NAD+::, 1, NADH_shuttle:: 
+             1e5
+             100, NADH::, 100, H+::, 100, NAD+:=, 1, NADH_shuttle::, 100, NADH_in::   
+
+r3_3, 500::, 1, Pi_transport::, 100, Pi:=, 100, H+_inter::, 1e7, 1, Pi_transport::, 100, Pi::, 100, H+::
+
+
+# oxtative phosphorylation from Cooper p67
+rM,   600::, 1, ADP_ATP_transport::, 100, ATP::, 100, ADP:=
+             1e7
+             1, ADP_ATP_transport::, 100, ATP:=, 100, ADP::
+
+r1_2, 700::, 1, O2:=, 10, 1, O2::, 1, O2_in::
+
+
+*Plot, log
+H2O::, OH-::, H2O_created::
+H+::, H+_inter::, OH-::
+H+_inter_created::, ATP_created::
+Pyruvate-::, Pyruvate-_in::, O2::
+ATP::, ATP_created::
+ADP::, Pi::, CoA-SH::, Acetyl_CoA::
+NAD+::, GDP::, FAD::
+NADH::, GTP::, FADH2::, CO2::
+FADH2::, FADH2_created::  
+ATP_created::,  CO2::
+
+*Plot
+ATP_created::,  CO2::
+
+

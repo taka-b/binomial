@@ -1,0 +1,56 @@
+{
+    "Comment section": {
+
+        "comment 1": "Select 'YES' or 'NO' at YES-NO settings",
+
+        "option": ""
+    },
+
+    "settings": {
+
+        "making_folder":  "YES", 
+        
+        "InformationCalc": "NO",
+
+        "EntropyCalc": "NO",
+
+        "n_p_Binomial": "NO",
+
+        "CSV_OUTPUT": "YES",
+        
+        "FIG_OUTPUT": "YES",
+
+        "Fig_from_CSV": "NO",
+        
+        "RestartFile": "YES",
+
+        "RestartFile_period": 10000,
+        
+        "Matplotlib(1) or Seaborn(2)": 2,
+
+        "Seaborn linewidth": 1.0,
+
+        "Plot_Legend": "YES"
+    },
+
+    "Comment section 2": {
+
+        "comment 2": "Optimization Select: 'YES' or 'NO'",
+
+        "comment 3": "One-Element-reaction_type: normal(1) or with normalize parameter N (2)",
+
+        "comment 4": "Reactions_Order: 'ordered' or 'random'"
+    },
+
+    "settings_calculation": {
+
+        "Optimization": "NO",
+
+        "One-Element-reaction_type": 1,
+
+        "Reaction_Order": "random",
+
+        "Dummy": "  "
+    }
+
+}

@@ -4,13 +4,13 @@
 0,  10000,   1000,   5000,    100,    msec
 **
 *Element
-H2O, 9999999100658, aqua, 4
-OH-, 999342, turquoise, 2
-H+, 999342, pink, 3
-a, 905855, Blue, 4
+H2O, 9999999100587, aqua, 4
+OH-, 999413, turquoise, 2
+H+, 999413, pink, 3
+a, 905605, Blue, 4
 b, 0, DarkTurquoise, 2
-c, 4043, DeepPink, 3
-r, 1194, green, 4
+c, 4039, DeepPink, 3
+r, 1162, green, 4
 
 *Reaction, 1e13
 r1_2, 000, 1, H2O,        1e-10, 1, H+, 1, OH-
@@ -29,26 +29,26 @@ a, b, c, r
 
 
 ** ************************************
-*SetDefine, C1_1
+** *SetDefine, :=C1_1
 ** ************************************
 # 2024.3.20 Takashi Sato
 
 *Element
-H2O:=C1_1, 9999899090,  aqua,  4
-OH-:=C1_1, 1010,  turquoise,  2
-H+:=C1_1, 1010,  pink,  3
-a:=C1_1, 1,  Blue,  4
-b:=C1_1, 5856,  DarkTurquoise,  2
-c:=C1_1, 3778,  DeepPink,  3
+H2O:=C1_1, 9999899088,  aqua,  4
+OH-:=C1_1, 1012,  turquoise,  2
+H+:=C1_1, 1012,  pink,  3
+a:=C1_1, 6,  Blue,  4
+b:=C1_1, 5611,  DarkTurquoise,  2
+c:=C1_1, 3810,  DeepPink,  3
 
 en_X:=C1_1, 3000,  darkkhaki,  3
 en_Z:=C1_1, 2000,  BlueViolet,  _
 
-l:=C1_1, 91932,  MediumOrchid,  >
+l:=C1_1, 92202,  MediumOrchid,  >
 m:=C1_1, 0,  indigo,  d
-n:=C1_1, 2212,  tomato,   *
-q:=C1_1, 4,  red,  3
-r:=C1_1, 985,  green,  4
+n:=C1_1, 2187,  tomato,   *
+q:=C1_1, 5,  red,  3
+r:=C1_1, 989,  green,  4
 
 ATP:=C1_1, 9900000,  green,  4
 ADP:=C1_1, 10100000,  LightPink,  |
@@ -87,25 +87,25 @@ en_X:=C1_1,  en_Z:=C1_1,  mem_P1:=C1_1,  mem_P2:=C1_1,  mem_P6:=C1_1
 
 
 ** ************************************
-*SetDefine, C1_1::M1_1
+** *SetDefine, ::C1_1::M1_1
 ** ************************************
 # 2024.3.20 Takashi Sato
 
 *Element
-H2O::C1_1::M1_1, 999997824,  aqua,  4
-OH-::C1_1::M1_1, 93,  turquoise,  2
-H+::C1_1::M1_1, 93,  pink,  3
+H2O::C1_1::M1_1, 999997841,  aqua,  4
+OH-::C1_1::M1_1, 103,  turquoise,  2
+H+::C1_1::M1_1, 103,  pink,  3
 
 l::C1_1::M1_1, 0,  MediumOrchid,  >
-m::C1_1::M1_1, 97788,  indigo,  d
-n::C1_1::M1_1, 95576,  tomato,   *
-q::C1_1::M1_1, 29,  red,  3
+m::C1_1::M1_1, 97813,  indigo,  d
+n::C1_1::M1_1, 95626,  tomato,   *
+q::C1_1::M1_1, 31,  red,  3
 
 en_Y::C1_1::M1_1, 10000,  MediumOrchid,  +
 
-ATP::C1_1::M1_1, 997817,  green,  4
-ADP::C1_1::M1_1, 1002183,  LightPink,  |
-Pi::C1_1::M1_1, 1002183,  BlueViolet,  _
+ATP::C1_1::M1_1, 997844,  green,  4
+ADP::C1_1::M1_1, 1002156,  LightPink,  |
+Pi::C1_1::M1_1, 1002156,  BlueViolet,  _
 
 mem_P3::C1_1::M1_1, 5000,  darkmagenta,  x
 mem_P4::C1_1::M1_1, 3000,  gray,    +
@@ -125,7 +125,7 @@ rM,    120::C1_1::M1_1,  1,  l::C1_1::M1_1,  1,  m::C1_1::M1_1,  1,  n::C1_1::M1
 
 rM,    130::C1_1::M1_1,  1,  q::C1_1::M1_1,  1,  mem_P5::C1_1::M1_1,  1,  ATP::C1_1::M1_1,  1,  H2O::C1_1::M1_1
 1e4
-1,  q:=C1_1,  1,  mem_P5::C1_1::M1_1,  1,  ADP::C1_1::M1_1,  1,  Pi::C1_1::M1_1
+1,  q:=C1_1::C1_1::M1_1,  1,  mem_P5::C1_1::M1_1,  1,  ADP::C1_1::M1_1,  1,  Pi::C1_1::M1_1
 
 
 *Plot,  log
