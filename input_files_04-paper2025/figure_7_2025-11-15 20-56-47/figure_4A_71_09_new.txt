@@ -1,0 +1,1778 @@
+** paper_2024_10_13.txt
+** from figure_4A_35.txt
+** 
+*Time, 
+0,  600000,   10000,   600000,    1000,    msec
+
+*Element
+glucose,       0, gold, d
+O2,            0, red,  o
+glucose_total, 0, indigo, d
+O2_total,      0, salmon,  o
+**  
+*ElementInOut
+glucose_in, 0, indigo, p, , type-1, 1, 1e3
+O2_in,      0, chocolate,  3, , type-1, 1, 6e3
+
+*Reaction, 1e13
+r1_2, 100, 1, glucose_in, 1e99, 1, glucose, 1, glucose_total
+r1_2, 200, 1, O2_in,      1e99, 1, O2, 1, O2_total
+
+** *Set_01
+** Cell, figure_4B_71.txt, 1
+
+** *Set_02
+** Mitochondria, Cell, 1, figure_4C_71.txt, 15
+ 
+*Plot
+glucose, O2
+
+*Plot, log
+glucose, O2, glucose_total, O2_total
+ 
+ 
+** ************************************ 
+*SetDefine, :=Cell_1
+** ************************************ 
+** from figure_4B_35.txt
+
+*Element
+H2O:=Cell_1,      1e13,  Blue,  4
+OH-:=Cell_1,       1e5,  DarkTurquoise,  2
+H+:=Cell_1,        1e5,  DeepPink,  3
+glucose:=Cell_1,               0,  gold,  3
+glucose_in:=Cell_1,            0,  indigo,  d
+glucose_transport:=Cell_1,  1000,  darkkhaki,  >
+O2:=Cell_1,                    0,  red,   o
+Pyruvate-:=Cell_1,   0,  gray,  H
+Pyruvate_created:=Cell_1,    0,  salmon,  H
+ATP:=Cell_1,    1e9,  DeepPink,  4
+ADP:=Cell_1,    1e9,  LightPink,  |
+Pi:=Cell_1,     1e9,  BlueViolet,  _
+NAD+:=Cell_1,   1e9,  Orange,  s
+NADH:=Cell_1,   1e9,  chocolate,  +
+Lactic-:=Cell_1,   0,  greenyellow,  o
+ 
+*Reaction,  1e13
+r1_2,   10:=Cell_1,  1,  H2O:=Cell_1,          1e-6,  1,  H+:=Cell_1,  1,  OH-:=Cell_1
+r2_1,   20:=Cell_1,  1,  H+:=Cell_1,  1,  OH-:=Cell_1,  1e4,  1,  H2O:=Cell_1
+
+r2_3,  100:=Cell_1,  1,  glucose_transport:=Cell_1,  1e1,  glucose,  1e9,  1,  glucose_transport:=Cell_1,  1e1,  glucose:=Cell_1,  1e1,  glucose_in:=Cell_1
+
+r1_1,  200:=Cell_1,  1,  O2,  0.1,  1,  O2:=Cell_1
+
+rM,    300:=Cell_1,  1,  glucose:=Cell_1,  2,  ATP:=Cell_1,  2,  ADP:=Cell_1,  2,  Pi:=Cell_1,  2,  NAD+:=Cell_1
+             1e4
+             2,  Pyruvate-:=Cell_1,  4,  ATP:=Cell_1,  2,  NADH:=Cell_1,  4,  H+:=Cell_1,  2,  H2O:=Cell_1,  2,  Pyruvate_created:=Cell_1
+
+r3_2,  400:=Cell_1,  1,  Pyruvate-:=Cell_1,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1e3,  1,  Lactic-:=Cell_1,  1,  NAD+:=Cell_1
+
+r2_2,  500:=Cell_1,  1,  ATP:=Cell_1,  1,  H2O:=Cell_1,  1e-4,  1,  ADP:=Cell_1,  1,  Pi:=Cell_1
+
+*Plot
+ OH-:=Cell_1,  H+:=Cell_1
+Pyruvate-:=Cell_1,  O2:=Cell_1
+glucose_in:=Cell_1,  Pyruvate_created:=Cell_1
+NADH:=Cell_1,  NAD+:=Cell_1
+
+*Plot,  log
+O2:=Cell_1,  glucose:=Cell_1,  Pyruvate-:=Cell_1,  Lactic-:=Cell_1
+OH-:=Cell_1,  H+:=Cell_1,  H2O:=Cell_1
+NADH:=Cell_1,  NAD+:=Cell_1
+ATP:=Cell_1,  ADP:=Cell_1,  Pi:=Cell_1
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_1
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_1,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_1,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_1,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_1,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_1,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_1,   0,  pink,  *
+O2::Cell_1::Mitochondria_1,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_1,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_1,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_1,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_1,        0,  lime,  2
+ADP::Cell_1::Mitochondria_1,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_1,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_1,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_1,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_1,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_1,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_1,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_1,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_1,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_1,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_1,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_1,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_1,         0,  green,  3
+FAD::Cell_1::Mitochondria_1,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_1,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_1,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_1,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_1,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_1,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_1,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_1,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_1,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_1,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_1,  1,  H2O::Cell_1::Mitochondria_1,          1e-6,  1,  H+::Cell_1::Mitochondria_1,  1,  OH-::Cell_1::Mitochondria_1
+r2_1,   20::Cell_1::Mitochondria_1,  1,  H+::Cell_1::Mitochondria_1,  1,  OH-::Cell_1::Mitochondria_1,  1e4,  1,  H2O::Cell_1::Mitochondria_1
+
+rM,    100::Cell_1::Mitochondria_1,  1,  Pyruvate_transport::Cell_1::Mitochondria_1,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_1,  1,  Pyruvate-::Cell_1::Mitochondria_1,  1,  H+::Cell_1::Mitochondria_1,  1,  Pyruvate-_in::Cell_1::Mitochondria_1
+
+rM,    200::Cell_1::Mitochondria_1,  1,  Pyruvate-::Cell_1::Mitochondria_1,  1,  CoA-SH::Cell_1::Mitochondria_1,  1,  NAD+::Cell_1::Mitochondria_1
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_1,  1,  NADH::Cell_1::Mitochondria_1,  1,  H+::Cell_1::Mitochondria_1,  1,  CO2::Cell_1::Mitochondria_1,  1,  NADH_created::Cell_1::Mitochondria_1
+
+rM,    210::Cell_1::Mitochondria_1,  1,  Acetyl_CoA::Cell_1::Mitochondria_1,  3,  NAD+::Cell_1::Mitochondria_1,  1,  GDP::Cell_1::Mitochondria_1,  1,  Pi::Cell_1::Mitochondria_1,  3,  H2O::Cell_1::Mitochondria_1,  1,  FAD::Cell_1::Mitochondria_1
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_1,  3,  NADH::Cell_1::Mitochondria_1,  3,  H+::Cell_1::Mitochondria_1,  1,  GTP::Cell_1::Mitochondria_1,  2,  CO2::Cell_1::Mitochondria_1,  1,  FADH2::Cell_1::Mitochondria_1,  1,  FADH2_created::Cell_1::Mitochondria_1,  3,  NADH_created::Cell_1::Mitochondria_1
+                               
+r2_2,  220::Cell_1::Mitochondria_1,  1,  GTP::Cell_1::Mitochondria_1,  1,  ADP::Cell_1::Mitochondria_1,  1e1,  1,  GDP::Cell_1::Mitochondria_1,  1,  ATP::Cell_1::Mitochondria_1
+
+rM,    300::Cell_1::Mitochondria_1,  2,  NADH::Cell_1::Mitochondria_1,  22,  H+::Cell_1::Mitochondria_1,  1,  O2::Cell_1::Mitochondria_1,  1,  Commp1-3-4::Cell_1::Mitochondria_1
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_1,  20,  H+_inter::Cell_1::Mitochondria_1,  2,  H2O::Cell_1::Mitochondria_1,  1,  Commp1-3-4::Cell_1::Mitochondria_1,  2,  H2O_created::Cell_1::Mitochondria_1,  20,  H+_inter_created::Cell_1::Mitochondria_1
+
+rM,    310::Cell_1::Mitochondria_1,  2,  FADH2::Cell_1::Mitochondria_1, 12,  H+::Cell_1::Mitochondria_1,  1,  O2::Cell_1::Mitochondria_1,  1,  Commp2-3-4::Cell_1::Mitochondria_1
+             1e5
+             2,  FAD::Cell_1::Mitochondria_1,  12,  H+_inter::Cell_1::Mitochondria_1,  2,  H2O::Cell_1::Mitochondria_1,  1,  Commp2-3-4::Cell_1::Mitochondria_1,  2,  H2O_created::Cell_1::Mitochondria_1,  12,  H+_inter_created::Cell_1::Mitochondria_1
+
+rM,    320::Cell_1::Mitochondria_1,  12,  H+_inter::Cell_1::Mitochondria_1,  3,  ADP::Cell_1::Mitochondria_1,  3,  Pi::Cell_1::Mitochondria_1,  1,  ATP_synthase::Cell_1::Mitochondria_1
+             6e3
+             12,  H+::Cell_1::Mitochondria_1,  3,  ATP::Cell_1::Mitochondria_1,  1,  ATP_synthase::Cell_1::Mitochondria_1,  3,  ATP_created::Cell_1::Mitochondria_1
+
+rM,    400::Cell_1::Mitochondria_1,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_1,  1,  NADH_shuttle::Cell_1::Mitochondria_1
+             1e3
+             1,  NADH::Cell_1::Mitochondria_1,  1,  H+::Cell_1::Mitochondria_1,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_1,  1,  NADH_in::Cell_1::Mitochondria_1
+
+rM,    500::Cell_1::Mitochondria_1,  1,  Pi_transport::Cell_1::Mitochondria_1,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_1,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_1,  1,  Pi::Cell_1::Mitochondria_1,  1,  H+::Cell_1::Mitochondria_1,  1,  Pi_in::Cell_1::Mitochondria_1
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_1,  1,  ADP_ATP_transport::Cell_1::Mitochondria_1,  1,  ATP::Cell_1::Mitochondria_1,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_1,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_1
+
+r1_2,  700::Cell_1::Mitochondria_1,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_1,  1,  O2_in::Cell_1::Mitochondria_1
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_1,  H+::Cell_1::Mitochondria_1,  OH-::Cell_1::Mitochondria_1,  H2O_created::Cell_1::Mitochondria_1
+H+::Cell_1::Mitochondria_1,  H+_inter::Cell_1::Mitochondria_1,  OH-::Cell_1::Mitochondria_1
+H+_inter_created::Cell_1::Mitochondria_1,  ATP_created::Cell_1::Mitochondria_1
+Pyruvate-::Cell_1::Mitochondria_1,  Pyruvate-_in::Cell_1::Mitochondria_1,  O2::Cell_1::Mitochondria_1,  O2_in::Cell_1::Mitochondria_1
+ATP::Cell_1::Mitochondria_1,  ATP_created::Cell_1::Mitochondria_1
+ADP::Cell_1::Mitochondria_1,  Pi::Cell_1::Mitochondria_1,  Pi_in::Cell_1::Mitochondria_1
+CoA-SH::Cell_1::Mitochondria_1,  Acetyl_CoA::Cell_1::Mitochondria_1, 
+NAD+::Cell_1::Mitochondria_1,  GDP::Cell_1::Mitochondria_1,  FAD::Cell_1::Mitochondria_1
+NADH::Cell_1::Mitochondria_1,  GTP::Cell_1::Mitochondria_1,  FADH2::Cell_1::Mitochondria_1,  CO2::Cell_1::Mitochondria_1
+FADH2::Cell_1::Mitochondria_1,  FADH2_created::Cell_1::Mitochondria_1
+ATP_created::Cell_1::Mitochondria_1,   CO2::Cell_1::Mitochondria_1
+
+*Plot
+ATP_created::Cell_1::Mitochondria_1,   CO2::Cell_1::Mitochondria_1
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_2
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_2,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_2,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_2,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_2,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_2,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_2,   0,  pink,  *
+O2::Cell_1::Mitochondria_2,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_2,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_2,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_2,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_2,        0,  lime,  2
+ADP::Cell_1::Mitochondria_2,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_2,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_2,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_2,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_2,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_2,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_2,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_2,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_2,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_2,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_2,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_2,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_2,         0,  green,  3
+FAD::Cell_1::Mitochondria_2,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_2,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_2,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_2,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_2,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_2,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_2,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_2,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_2,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_2,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_2,  1,  H2O::Cell_1::Mitochondria_2,          1e-6,  1,  H+::Cell_1::Mitochondria_2,  1,  OH-::Cell_1::Mitochondria_2
+r2_1,   20::Cell_1::Mitochondria_2,  1,  H+::Cell_1::Mitochondria_2,  1,  OH-::Cell_1::Mitochondria_2,  1e4,  1,  H2O::Cell_1::Mitochondria_2
+
+rM,    100::Cell_1::Mitochondria_2,  1,  Pyruvate_transport::Cell_1::Mitochondria_2,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_2,  1,  Pyruvate-::Cell_1::Mitochondria_2,  1,  H+::Cell_1::Mitochondria_2,  1,  Pyruvate-_in::Cell_1::Mitochondria_2
+
+rM,    200::Cell_1::Mitochondria_2,  1,  Pyruvate-::Cell_1::Mitochondria_2,  1,  CoA-SH::Cell_1::Mitochondria_2,  1,  NAD+::Cell_1::Mitochondria_2
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_2,  1,  NADH::Cell_1::Mitochondria_2,  1,  H+::Cell_1::Mitochondria_2,  1,  CO2::Cell_1::Mitochondria_2,  1,  NADH_created::Cell_1::Mitochondria_2
+
+rM,    210::Cell_1::Mitochondria_2,  1,  Acetyl_CoA::Cell_1::Mitochondria_2,  3,  NAD+::Cell_1::Mitochondria_2,  1,  GDP::Cell_1::Mitochondria_2,  1,  Pi::Cell_1::Mitochondria_2,  3,  H2O::Cell_1::Mitochondria_2,  1,  FAD::Cell_1::Mitochondria_2
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_2,  3,  NADH::Cell_1::Mitochondria_2,  3,  H+::Cell_1::Mitochondria_2,  1,  GTP::Cell_1::Mitochondria_2,  2,  CO2::Cell_1::Mitochondria_2,  1,  FADH2::Cell_1::Mitochondria_2,  1,  FADH2_created::Cell_1::Mitochondria_2,  3,  NADH_created::Cell_1::Mitochondria_2
+                               
+r2_2,  220::Cell_1::Mitochondria_2,  1,  GTP::Cell_1::Mitochondria_2,  1,  ADP::Cell_1::Mitochondria_2,  1e1,  1,  GDP::Cell_1::Mitochondria_2,  1,  ATP::Cell_1::Mitochondria_2
+
+rM,    300::Cell_1::Mitochondria_2,  2,  NADH::Cell_1::Mitochondria_2,  22,  H+::Cell_1::Mitochondria_2,  1,  O2::Cell_1::Mitochondria_2,  1,  Commp1-3-4::Cell_1::Mitochondria_2
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_2,  20,  H+_inter::Cell_1::Mitochondria_2,  2,  H2O::Cell_1::Mitochondria_2,  1,  Commp1-3-4::Cell_1::Mitochondria_2,  2,  H2O_created::Cell_1::Mitochondria_2,  20,  H+_inter_created::Cell_1::Mitochondria_2
+
+rM,    310::Cell_1::Mitochondria_2,  2,  FADH2::Cell_1::Mitochondria_2, 12,  H+::Cell_1::Mitochondria_2,  1,  O2::Cell_1::Mitochondria_2,  1,  Commp2-3-4::Cell_1::Mitochondria_2
+             1e5
+             2,  FAD::Cell_1::Mitochondria_2,  12,  H+_inter::Cell_1::Mitochondria_2,  2,  H2O::Cell_1::Mitochondria_2,  1,  Commp2-3-4::Cell_1::Mitochondria_2,  2,  H2O_created::Cell_1::Mitochondria_2,  12,  H+_inter_created::Cell_1::Mitochondria_2
+
+rM,    320::Cell_1::Mitochondria_2,  12,  H+_inter::Cell_1::Mitochondria_2,  3,  ADP::Cell_1::Mitochondria_2,  3,  Pi::Cell_1::Mitochondria_2,  1,  ATP_synthase::Cell_1::Mitochondria_2
+             6e3
+             12,  H+::Cell_1::Mitochondria_2,  3,  ATP::Cell_1::Mitochondria_2,  1,  ATP_synthase::Cell_1::Mitochondria_2,  3,  ATP_created::Cell_1::Mitochondria_2
+
+rM,    400::Cell_1::Mitochondria_2,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_2,  1,  NADH_shuttle::Cell_1::Mitochondria_2
+             1e3
+             1,  NADH::Cell_1::Mitochondria_2,  1,  H+::Cell_1::Mitochondria_2,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_2,  1,  NADH_in::Cell_1::Mitochondria_2
+
+rM,    500::Cell_1::Mitochondria_2,  1,  Pi_transport::Cell_1::Mitochondria_2,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_2,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_2,  1,  Pi::Cell_1::Mitochondria_2,  1,  H+::Cell_1::Mitochondria_2,  1,  Pi_in::Cell_1::Mitochondria_2
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_2,  1,  ADP_ATP_transport::Cell_1::Mitochondria_2,  1,  ATP::Cell_1::Mitochondria_2,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_2,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_2
+
+r1_2,  700::Cell_1::Mitochondria_2,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_2,  1,  O2_in::Cell_1::Mitochondria_2
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_2,  H+::Cell_1::Mitochondria_2,  OH-::Cell_1::Mitochondria_2,  H2O_created::Cell_1::Mitochondria_2
+H+::Cell_1::Mitochondria_2,  H+_inter::Cell_1::Mitochondria_2,  OH-::Cell_1::Mitochondria_2
+H+_inter_created::Cell_1::Mitochondria_2,  ATP_created::Cell_1::Mitochondria_2
+Pyruvate-::Cell_1::Mitochondria_2,  Pyruvate-_in::Cell_1::Mitochondria_2,  O2::Cell_1::Mitochondria_2,  O2_in::Cell_1::Mitochondria_2
+ATP::Cell_1::Mitochondria_2,  ATP_created::Cell_1::Mitochondria_2
+ADP::Cell_1::Mitochondria_2,  Pi::Cell_1::Mitochondria_2,  Pi_in::Cell_1::Mitochondria_2
+CoA-SH::Cell_1::Mitochondria_2,  Acetyl_CoA::Cell_1::Mitochondria_2, 
+NAD+::Cell_1::Mitochondria_2,  GDP::Cell_1::Mitochondria_2,  FAD::Cell_1::Mitochondria_2
+NADH::Cell_1::Mitochondria_2,  GTP::Cell_1::Mitochondria_2,  FADH2::Cell_1::Mitochondria_2,  CO2::Cell_1::Mitochondria_2
+FADH2::Cell_1::Mitochondria_2,  FADH2_created::Cell_1::Mitochondria_2
+ATP_created::Cell_1::Mitochondria_2,   CO2::Cell_1::Mitochondria_2
+
+*Plot
+ATP_created::Cell_1::Mitochondria_2,   CO2::Cell_1::Mitochondria_2
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_3
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_3,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_3,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_3,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_3,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_3,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_3,   0,  pink,  *
+O2::Cell_1::Mitochondria_3,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_3,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_3,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_3,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_3,        0,  lime,  2
+ADP::Cell_1::Mitochondria_3,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_3,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_3,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_3,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_3,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_3,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_3,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_3,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_3,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_3,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_3,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_3,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_3,         0,  green,  3
+FAD::Cell_1::Mitochondria_3,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_3,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_3,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_3,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_3,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_3,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_3,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_3,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_3,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_3,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_3,  1,  H2O::Cell_1::Mitochondria_3,          1e-6,  1,  H+::Cell_1::Mitochondria_3,  1,  OH-::Cell_1::Mitochondria_3
+r2_1,   20::Cell_1::Mitochondria_3,  1,  H+::Cell_1::Mitochondria_3,  1,  OH-::Cell_1::Mitochondria_3,  1e4,  1,  H2O::Cell_1::Mitochondria_3
+
+rM,    100::Cell_1::Mitochondria_3,  1,  Pyruvate_transport::Cell_1::Mitochondria_3,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_3,  1,  Pyruvate-::Cell_1::Mitochondria_3,  1,  H+::Cell_1::Mitochondria_3,  1,  Pyruvate-_in::Cell_1::Mitochondria_3
+
+rM,    200::Cell_1::Mitochondria_3,  1,  Pyruvate-::Cell_1::Mitochondria_3,  1,  CoA-SH::Cell_1::Mitochondria_3,  1,  NAD+::Cell_1::Mitochondria_3
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_3,  1,  NADH::Cell_1::Mitochondria_3,  1,  H+::Cell_1::Mitochondria_3,  1,  CO2::Cell_1::Mitochondria_3,  1,  NADH_created::Cell_1::Mitochondria_3
+
+rM,    210::Cell_1::Mitochondria_3,  1,  Acetyl_CoA::Cell_1::Mitochondria_3,  3,  NAD+::Cell_1::Mitochondria_3,  1,  GDP::Cell_1::Mitochondria_3,  1,  Pi::Cell_1::Mitochondria_3,  3,  H2O::Cell_1::Mitochondria_3,  1,  FAD::Cell_1::Mitochondria_3
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_3,  3,  NADH::Cell_1::Mitochondria_3,  3,  H+::Cell_1::Mitochondria_3,  1,  GTP::Cell_1::Mitochondria_3,  2,  CO2::Cell_1::Mitochondria_3,  1,  FADH2::Cell_1::Mitochondria_3,  1,  FADH2_created::Cell_1::Mitochondria_3,  3,  NADH_created::Cell_1::Mitochondria_3
+                               
+r2_2,  220::Cell_1::Mitochondria_3,  1,  GTP::Cell_1::Mitochondria_3,  1,  ADP::Cell_1::Mitochondria_3,  1e1,  1,  GDP::Cell_1::Mitochondria_3,  1,  ATP::Cell_1::Mitochondria_3
+
+rM,    300::Cell_1::Mitochondria_3,  2,  NADH::Cell_1::Mitochondria_3,  22,  H+::Cell_1::Mitochondria_3,  1,  O2::Cell_1::Mitochondria_3,  1,  Commp1-3-4::Cell_1::Mitochondria_3
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_3,  20,  H+_inter::Cell_1::Mitochondria_3,  2,  H2O::Cell_1::Mitochondria_3,  1,  Commp1-3-4::Cell_1::Mitochondria_3,  2,  H2O_created::Cell_1::Mitochondria_3,  20,  H+_inter_created::Cell_1::Mitochondria_3
+
+rM,    310::Cell_1::Mitochondria_3,  2,  FADH2::Cell_1::Mitochondria_3, 12,  H+::Cell_1::Mitochondria_3,  1,  O2::Cell_1::Mitochondria_3,  1,  Commp2-3-4::Cell_1::Mitochondria_3
+             1e5
+             2,  FAD::Cell_1::Mitochondria_3,  12,  H+_inter::Cell_1::Mitochondria_3,  2,  H2O::Cell_1::Mitochondria_3,  1,  Commp2-3-4::Cell_1::Mitochondria_3,  2,  H2O_created::Cell_1::Mitochondria_3,  12,  H+_inter_created::Cell_1::Mitochondria_3
+
+rM,    320::Cell_1::Mitochondria_3,  12,  H+_inter::Cell_1::Mitochondria_3,  3,  ADP::Cell_1::Mitochondria_3,  3,  Pi::Cell_1::Mitochondria_3,  1,  ATP_synthase::Cell_1::Mitochondria_3
+             6e3
+             12,  H+::Cell_1::Mitochondria_3,  3,  ATP::Cell_1::Mitochondria_3,  1,  ATP_synthase::Cell_1::Mitochondria_3,  3,  ATP_created::Cell_1::Mitochondria_3
+
+rM,    400::Cell_1::Mitochondria_3,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_3,  1,  NADH_shuttle::Cell_1::Mitochondria_3
+             1e3
+             1,  NADH::Cell_1::Mitochondria_3,  1,  H+::Cell_1::Mitochondria_3,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_3,  1,  NADH_in::Cell_1::Mitochondria_3
+
+rM,    500::Cell_1::Mitochondria_3,  1,  Pi_transport::Cell_1::Mitochondria_3,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_3,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_3,  1,  Pi::Cell_1::Mitochondria_3,  1,  H+::Cell_1::Mitochondria_3,  1,  Pi_in::Cell_1::Mitochondria_3
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_3,  1,  ADP_ATP_transport::Cell_1::Mitochondria_3,  1,  ATP::Cell_1::Mitochondria_3,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_3,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_3
+
+r1_2,  700::Cell_1::Mitochondria_3,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_3,  1,  O2_in::Cell_1::Mitochondria_3
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_3,  H+::Cell_1::Mitochondria_3,  OH-::Cell_1::Mitochondria_3,  H2O_created::Cell_1::Mitochondria_3
+H+::Cell_1::Mitochondria_3,  H+_inter::Cell_1::Mitochondria_3,  OH-::Cell_1::Mitochondria_3
+H+_inter_created::Cell_1::Mitochondria_3,  ATP_created::Cell_1::Mitochondria_3
+Pyruvate-::Cell_1::Mitochondria_3,  Pyruvate-_in::Cell_1::Mitochondria_3,  O2::Cell_1::Mitochondria_3,  O2_in::Cell_1::Mitochondria_3
+ATP::Cell_1::Mitochondria_3,  ATP_created::Cell_1::Mitochondria_3
+ADP::Cell_1::Mitochondria_3,  Pi::Cell_1::Mitochondria_3,  Pi_in::Cell_1::Mitochondria_3
+CoA-SH::Cell_1::Mitochondria_3,  Acetyl_CoA::Cell_1::Mitochondria_3, 
+NAD+::Cell_1::Mitochondria_3,  GDP::Cell_1::Mitochondria_3,  FAD::Cell_1::Mitochondria_3
+NADH::Cell_1::Mitochondria_3,  GTP::Cell_1::Mitochondria_3,  FADH2::Cell_1::Mitochondria_3,  CO2::Cell_1::Mitochondria_3
+FADH2::Cell_1::Mitochondria_3,  FADH2_created::Cell_1::Mitochondria_3
+ATP_created::Cell_1::Mitochondria_3,   CO2::Cell_1::Mitochondria_3
+
+*Plot
+ATP_created::Cell_1::Mitochondria_3,   CO2::Cell_1::Mitochondria_3
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_4
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_4,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_4,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_4,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_4,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_4,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_4,   0,  pink,  *
+O2::Cell_1::Mitochondria_4,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_4,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_4,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_4,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_4,        0,  lime,  2
+ADP::Cell_1::Mitochondria_4,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_4,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_4,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_4,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_4,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_4,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_4,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_4,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_4,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_4,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_4,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_4,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_4,         0,  green,  3
+FAD::Cell_1::Mitochondria_4,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_4,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_4,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_4,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_4,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_4,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_4,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_4,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_4,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_4,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_4,  1,  H2O::Cell_1::Mitochondria_4,          1e-6,  1,  H+::Cell_1::Mitochondria_4,  1,  OH-::Cell_1::Mitochondria_4
+r2_1,   20::Cell_1::Mitochondria_4,  1,  H+::Cell_1::Mitochondria_4,  1,  OH-::Cell_1::Mitochondria_4,  1e4,  1,  H2O::Cell_1::Mitochondria_4
+
+rM,    100::Cell_1::Mitochondria_4,  1,  Pyruvate_transport::Cell_1::Mitochondria_4,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_4,  1,  Pyruvate-::Cell_1::Mitochondria_4,  1,  H+::Cell_1::Mitochondria_4,  1,  Pyruvate-_in::Cell_1::Mitochondria_4
+
+rM,    200::Cell_1::Mitochondria_4,  1,  Pyruvate-::Cell_1::Mitochondria_4,  1,  CoA-SH::Cell_1::Mitochondria_4,  1,  NAD+::Cell_1::Mitochondria_4
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_4,  1,  NADH::Cell_1::Mitochondria_4,  1,  H+::Cell_1::Mitochondria_4,  1,  CO2::Cell_1::Mitochondria_4,  1,  NADH_created::Cell_1::Mitochondria_4
+
+rM,    210::Cell_1::Mitochondria_4,  1,  Acetyl_CoA::Cell_1::Mitochondria_4,  3,  NAD+::Cell_1::Mitochondria_4,  1,  GDP::Cell_1::Mitochondria_4,  1,  Pi::Cell_1::Mitochondria_4,  3,  H2O::Cell_1::Mitochondria_4,  1,  FAD::Cell_1::Mitochondria_4
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_4,  3,  NADH::Cell_1::Mitochondria_4,  3,  H+::Cell_1::Mitochondria_4,  1,  GTP::Cell_1::Mitochondria_4,  2,  CO2::Cell_1::Mitochondria_4,  1,  FADH2::Cell_1::Mitochondria_4,  1,  FADH2_created::Cell_1::Mitochondria_4,  3,  NADH_created::Cell_1::Mitochondria_4
+                               
+r2_2,  220::Cell_1::Mitochondria_4,  1,  GTP::Cell_1::Mitochondria_4,  1,  ADP::Cell_1::Mitochondria_4,  1e1,  1,  GDP::Cell_1::Mitochondria_4,  1,  ATP::Cell_1::Mitochondria_4
+
+rM,    300::Cell_1::Mitochondria_4,  2,  NADH::Cell_1::Mitochondria_4,  22,  H+::Cell_1::Mitochondria_4,  1,  O2::Cell_1::Mitochondria_4,  1,  Commp1-3-4::Cell_1::Mitochondria_4
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_4,  20,  H+_inter::Cell_1::Mitochondria_4,  2,  H2O::Cell_1::Mitochondria_4,  1,  Commp1-3-4::Cell_1::Mitochondria_4,  2,  H2O_created::Cell_1::Mitochondria_4,  20,  H+_inter_created::Cell_1::Mitochondria_4
+
+rM,    310::Cell_1::Mitochondria_4,  2,  FADH2::Cell_1::Mitochondria_4, 12,  H+::Cell_1::Mitochondria_4,  1,  O2::Cell_1::Mitochondria_4,  1,  Commp2-3-4::Cell_1::Mitochondria_4
+             1e5
+             2,  FAD::Cell_1::Mitochondria_4,  12,  H+_inter::Cell_1::Mitochondria_4,  2,  H2O::Cell_1::Mitochondria_4,  1,  Commp2-3-4::Cell_1::Mitochondria_4,  2,  H2O_created::Cell_1::Mitochondria_4,  12,  H+_inter_created::Cell_1::Mitochondria_4
+
+rM,    320::Cell_1::Mitochondria_4,  12,  H+_inter::Cell_1::Mitochondria_4,  3,  ADP::Cell_1::Mitochondria_4,  3,  Pi::Cell_1::Mitochondria_4,  1,  ATP_synthase::Cell_1::Mitochondria_4
+             6e3
+             12,  H+::Cell_1::Mitochondria_4,  3,  ATP::Cell_1::Mitochondria_4,  1,  ATP_synthase::Cell_1::Mitochondria_4,  3,  ATP_created::Cell_1::Mitochondria_4
+
+rM,    400::Cell_1::Mitochondria_4,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_4,  1,  NADH_shuttle::Cell_1::Mitochondria_4
+             1e3
+             1,  NADH::Cell_1::Mitochondria_4,  1,  H+::Cell_1::Mitochondria_4,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_4,  1,  NADH_in::Cell_1::Mitochondria_4
+
+rM,    500::Cell_1::Mitochondria_4,  1,  Pi_transport::Cell_1::Mitochondria_4,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_4,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_4,  1,  Pi::Cell_1::Mitochondria_4,  1,  H+::Cell_1::Mitochondria_4,  1,  Pi_in::Cell_1::Mitochondria_4
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_4,  1,  ADP_ATP_transport::Cell_1::Mitochondria_4,  1,  ATP::Cell_1::Mitochondria_4,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_4,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_4
+
+r1_2,  700::Cell_1::Mitochondria_4,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_4,  1,  O2_in::Cell_1::Mitochondria_4
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_4,  H+::Cell_1::Mitochondria_4,  OH-::Cell_1::Mitochondria_4,  H2O_created::Cell_1::Mitochondria_4
+H+::Cell_1::Mitochondria_4,  H+_inter::Cell_1::Mitochondria_4,  OH-::Cell_1::Mitochondria_4
+H+_inter_created::Cell_1::Mitochondria_4,  ATP_created::Cell_1::Mitochondria_4
+Pyruvate-::Cell_1::Mitochondria_4,  Pyruvate-_in::Cell_1::Mitochondria_4,  O2::Cell_1::Mitochondria_4,  O2_in::Cell_1::Mitochondria_4
+ATP::Cell_1::Mitochondria_4,  ATP_created::Cell_1::Mitochondria_4
+ADP::Cell_1::Mitochondria_4,  Pi::Cell_1::Mitochondria_4,  Pi_in::Cell_1::Mitochondria_4
+CoA-SH::Cell_1::Mitochondria_4,  Acetyl_CoA::Cell_1::Mitochondria_4, 
+NAD+::Cell_1::Mitochondria_4,  GDP::Cell_1::Mitochondria_4,  FAD::Cell_1::Mitochondria_4
+NADH::Cell_1::Mitochondria_4,  GTP::Cell_1::Mitochondria_4,  FADH2::Cell_1::Mitochondria_4,  CO2::Cell_1::Mitochondria_4
+FADH2::Cell_1::Mitochondria_4,  FADH2_created::Cell_1::Mitochondria_4
+ATP_created::Cell_1::Mitochondria_4,   CO2::Cell_1::Mitochondria_4
+
+*Plot
+ATP_created::Cell_1::Mitochondria_4,   CO2::Cell_1::Mitochondria_4
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_5
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_5,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_5,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_5,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_5,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_5,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_5,   0,  pink,  *
+O2::Cell_1::Mitochondria_5,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_5,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_5,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_5,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_5,        0,  lime,  2
+ADP::Cell_1::Mitochondria_5,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_5,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_5,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_5,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_5,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_5,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_5,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_5,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_5,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_5,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_5,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_5,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_5,         0,  green,  3
+FAD::Cell_1::Mitochondria_5,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_5,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_5,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_5,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_5,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_5,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_5,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_5,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_5,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_5,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_5,  1,  H2O::Cell_1::Mitochondria_5,          1e-6,  1,  H+::Cell_1::Mitochondria_5,  1,  OH-::Cell_1::Mitochondria_5
+r2_1,   20::Cell_1::Mitochondria_5,  1,  H+::Cell_1::Mitochondria_5,  1,  OH-::Cell_1::Mitochondria_5,  1e4,  1,  H2O::Cell_1::Mitochondria_5
+
+rM,    100::Cell_1::Mitochondria_5,  1,  Pyruvate_transport::Cell_1::Mitochondria_5,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_5,  1,  Pyruvate-::Cell_1::Mitochondria_5,  1,  H+::Cell_1::Mitochondria_5,  1,  Pyruvate-_in::Cell_1::Mitochondria_5
+
+rM,    200::Cell_1::Mitochondria_5,  1,  Pyruvate-::Cell_1::Mitochondria_5,  1,  CoA-SH::Cell_1::Mitochondria_5,  1,  NAD+::Cell_1::Mitochondria_5
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_5,  1,  NADH::Cell_1::Mitochondria_5,  1,  H+::Cell_1::Mitochondria_5,  1,  CO2::Cell_1::Mitochondria_5,  1,  NADH_created::Cell_1::Mitochondria_5
+
+rM,    210::Cell_1::Mitochondria_5,  1,  Acetyl_CoA::Cell_1::Mitochondria_5,  3,  NAD+::Cell_1::Mitochondria_5,  1,  GDP::Cell_1::Mitochondria_5,  1,  Pi::Cell_1::Mitochondria_5,  3,  H2O::Cell_1::Mitochondria_5,  1,  FAD::Cell_1::Mitochondria_5
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_5,  3,  NADH::Cell_1::Mitochondria_5,  3,  H+::Cell_1::Mitochondria_5,  1,  GTP::Cell_1::Mitochondria_5,  2,  CO2::Cell_1::Mitochondria_5,  1,  FADH2::Cell_1::Mitochondria_5,  1,  FADH2_created::Cell_1::Mitochondria_5,  3,  NADH_created::Cell_1::Mitochondria_5
+                               
+r2_2,  220::Cell_1::Mitochondria_5,  1,  GTP::Cell_1::Mitochondria_5,  1,  ADP::Cell_1::Mitochondria_5,  1e1,  1,  GDP::Cell_1::Mitochondria_5,  1,  ATP::Cell_1::Mitochondria_5
+
+rM,    300::Cell_1::Mitochondria_5,  2,  NADH::Cell_1::Mitochondria_5,  22,  H+::Cell_1::Mitochondria_5,  1,  O2::Cell_1::Mitochondria_5,  1,  Commp1-3-4::Cell_1::Mitochondria_5
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_5,  20,  H+_inter::Cell_1::Mitochondria_5,  2,  H2O::Cell_1::Mitochondria_5,  1,  Commp1-3-4::Cell_1::Mitochondria_5,  2,  H2O_created::Cell_1::Mitochondria_5,  20,  H+_inter_created::Cell_1::Mitochondria_5
+
+rM,    310::Cell_1::Mitochondria_5,  2,  FADH2::Cell_1::Mitochondria_5, 12,  H+::Cell_1::Mitochondria_5,  1,  O2::Cell_1::Mitochondria_5,  1,  Commp2-3-4::Cell_1::Mitochondria_5
+             1e5
+             2,  FAD::Cell_1::Mitochondria_5,  12,  H+_inter::Cell_1::Mitochondria_5,  2,  H2O::Cell_1::Mitochondria_5,  1,  Commp2-3-4::Cell_1::Mitochondria_5,  2,  H2O_created::Cell_1::Mitochondria_5,  12,  H+_inter_created::Cell_1::Mitochondria_5
+
+rM,    320::Cell_1::Mitochondria_5,  12,  H+_inter::Cell_1::Mitochondria_5,  3,  ADP::Cell_1::Mitochondria_5,  3,  Pi::Cell_1::Mitochondria_5,  1,  ATP_synthase::Cell_1::Mitochondria_5
+             6e3
+             12,  H+::Cell_1::Mitochondria_5,  3,  ATP::Cell_1::Mitochondria_5,  1,  ATP_synthase::Cell_1::Mitochondria_5,  3,  ATP_created::Cell_1::Mitochondria_5
+
+rM,    400::Cell_1::Mitochondria_5,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_5,  1,  NADH_shuttle::Cell_1::Mitochondria_5
+             1e3
+             1,  NADH::Cell_1::Mitochondria_5,  1,  H+::Cell_1::Mitochondria_5,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_5,  1,  NADH_in::Cell_1::Mitochondria_5
+
+rM,    500::Cell_1::Mitochondria_5,  1,  Pi_transport::Cell_1::Mitochondria_5,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_5,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_5,  1,  Pi::Cell_1::Mitochondria_5,  1,  H+::Cell_1::Mitochondria_5,  1,  Pi_in::Cell_1::Mitochondria_5
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_5,  1,  ADP_ATP_transport::Cell_1::Mitochondria_5,  1,  ATP::Cell_1::Mitochondria_5,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_5,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_5
+
+r1_2,  700::Cell_1::Mitochondria_5,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_5,  1,  O2_in::Cell_1::Mitochondria_5
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_5,  H+::Cell_1::Mitochondria_5,  OH-::Cell_1::Mitochondria_5,  H2O_created::Cell_1::Mitochondria_5
+H+::Cell_1::Mitochondria_5,  H+_inter::Cell_1::Mitochondria_5,  OH-::Cell_1::Mitochondria_5
+H+_inter_created::Cell_1::Mitochondria_5,  ATP_created::Cell_1::Mitochondria_5
+Pyruvate-::Cell_1::Mitochondria_5,  Pyruvate-_in::Cell_1::Mitochondria_5,  O2::Cell_1::Mitochondria_5,  O2_in::Cell_1::Mitochondria_5
+ATP::Cell_1::Mitochondria_5,  ATP_created::Cell_1::Mitochondria_5
+ADP::Cell_1::Mitochondria_5,  Pi::Cell_1::Mitochondria_5,  Pi_in::Cell_1::Mitochondria_5
+CoA-SH::Cell_1::Mitochondria_5,  Acetyl_CoA::Cell_1::Mitochondria_5, 
+NAD+::Cell_1::Mitochondria_5,  GDP::Cell_1::Mitochondria_5,  FAD::Cell_1::Mitochondria_5
+NADH::Cell_1::Mitochondria_5,  GTP::Cell_1::Mitochondria_5,  FADH2::Cell_1::Mitochondria_5,  CO2::Cell_1::Mitochondria_5
+FADH2::Cell_1::Mitochondria_5,  FADH2_created::Cell_1::Mitochondria_5
+ATP_created::Cell_1::Mitochondria_5,   CO2::Cell_1::Mitochondria_5
+
+*Plot
+ATP_created::Cell_1::Mitochondria_5,   CO2::Cell_1::Mitochondria_5
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_6
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_6,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_6,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_6,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_6,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_6,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_6,   0,  pink,  *
+O2::Cell_1::Mitochondria_6,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_6,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_6,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_6,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_6,        0,  lime,  2
+ADP::Cell_1::Mitochondria_6,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_6,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_6,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_6,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_6,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_6,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_6,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_6,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_6,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_6,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_6,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_6,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_6,         0,  green,  3
+FAD::Cell_1::Mitochondria_6,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_6,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_6,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_6,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_6,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_6,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_6,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_6,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_6,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_6,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_6,  1,  H2O::Cell_1::Mitochondria_6,          1e-6,  1,  H+::Cell_1::Mitochondria_6,  1,  OH-::Cell_1::Mitochondria_6
+r2_1,   20::Cell_1::Mitochondria_6,  1,  H+::Cell_1::Mitochondria_6,  1,  OH-::Cell_1::Mitochondria_6,  1e4,  1,  H2O::Cell_1::Mitochondria_6
+
+rM,    100::Cell_1::Mitochondria_6,  1,  Pyruvate_transport::Cell_1::Mitochondria_6,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_6,  1,  Pyruvate-::Cell_1::Mitochondria_6,  1,  H+::Cell_1::Mitochondria_6,  1,  Pyruvate-_in::Cell_1::Mitochondria_6
+
+rM,    200::Cell_1::Mitochondria_6,  1,  Pyruvate-::Cell_1::Mitochondria_6,  1,  CoA-SH::Cell_1::Mitochondria_6,  1,  NAD+::Cell_1::Mitochondria_6
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_6,  1,  NADH::Cell_1::Mitochondria_6,  1,  H+::Cell_1::Mitochondria_6,  1,  CO2::Cell_1::Mitochondria_6,  1,  NADH_created::Cell_1::Mitochondria_6
+
+rM,    210::Cell_1::Mitochondria_6,  1,  Acetyl_CoA::Cell_1::Mitochondria_6,  3,  NAD+::Cell_1::Mitochondria_6,  1,  GDP::Cell_1::Mitochondria_6,  1,  Pi::Cell_1::Mitochondria_6,  3,  H2O::Cell_1::Mitochondria_6,  1,  FAD::Cell_1::Mitochondria_6
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_6,  3,  NADH::Cell_1::Mitochondria_6,  3,  H+::Cell_1::Mitochondria_6,  1,  GTP::Cell_1::Mitochondria_6,  2,  CO2::Cell_1::Mitochondria_6,  1,  FADH2::Cell_1::Mitochondria_6,  1,  FADH2_created::Cell_1::Mitochondria_6,  3,  NADH_created::Cell_1::Mitochondria_6
+                               
+r2_2,  220::Cell_1::Mitochondria_6,  1,  GTP::Cell_1::Mitochondria_6,  1,  ADP::Cell_1::Mitochondria_6,  1e1,  1,  GDP::Cell_1::Mitochondria_6,  1,  ATP::Cell_1::Mitochondria_6
+
+rM,    300::Cell_1::Mitochondria_6,  2,  NADH::Cell_1::Mitochondria_6,  22,  H+::Cell_1::Mitochondria_6,  1,  O2::Cell_1::Mitochondria_6,  1,  Commp1-3-4::Cell_1::Mitochondria_6
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_6,  20,  H+_inter::Cell_1::Mitochondria_6,  2,  H2O::Cell_1::Mitochondria_6,  1,  Commp1-3-4::Cell_1::Mitochondria_6,  2,  H2O_created::Cell_1::Mitochondria_6,  20,  H+_inter_created::Cell_1::Mitochondria_6
+
+rM,    310::Cell_1::Mitochondria_6,  2,  FADH2::Cell_1::Mitochondria_6, 12,  H+::Cell_1::Mitochondria_6,  1,  O2::Cell_1::Mitochondria_6,  1,  Commp2-3-4::Cell_1::Mitochondria_6
+             1e5
+             2,  FAD::Cell_1::Mitochondria_6,  12,  H+_inter::Cell_1::Mitochondria_6,  2,  H2O::Cell_1::Mitochondria_6,  1,  Commp2-3-4::Cell_1::Mitochondria_6,  2,  H2O_created::Cell_1::Mitochondria_6,  12,  H+_inter_created::Cell_1::Mitochondria_6
+
+rM,    320::Cell_1::Mitochondria_6,  12,  H+_inter::Cell_1::Mitochondria_6,  3,  ADP::Cell_1::Mitochondria_6,  3,  Pi::Cell_1::Mitochondria_6,  1,  ATP_synthase::Cell_1::Mitochondria_6
+             6e3
+             12,  H+::Cell_1::Mitochondria_6,  3,  ATP::Cell_1::Mitochondria_6,  1,  ATP_synthase::Cell_1::Mitochondria_6,  3,  ATP_created::Cell_1::Mitochondria_6
+
+rM,    400::Cell_1::Mitochondria_6,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_6,  1,  NADH_shuttle::Cell_1::Mitochondria_6
+             1e3
+             1,  NADH::Cell_1::Mitochondria_6,  1,  H+::Cell_1::Mitochondria_6,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_6,  1,  NADH_in::Cell_1::Mitochondria_6
+
+rM,    500::Cell_1::Mitochondria_6,  1,  Pi_transport::Cell_1::Mitochondria_6,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_6,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_6,  1,  Pi::Cell_1::Mitochondria_6,  1,  H+::Cell_1::Mitochondria_6,  1,  Pi_in::Cell_1::Mitochondria_6
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_6,  1,  ADP_ATP_transport::Cell_1::Mitochondria_6,  1,  ATP::Cell_1::Mitochondria_6,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_6,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_6
+
+r1_2,  700::Cell_1::Mitochondria_6,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_6,  1,  O2_in::Cell_1::Mitochondria_6
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_6,  H+::Cell_1::Mitochondria_6,  OH-::Cell_1::Mitochondria_6,  H2O_created::Cell_1::Mitochondria_6
+H+::Cell_1::Mitochondria_6,  H+_inter::Cell_1::Mitochondria_6,  OH-::Cell_1::Mitochondria_6
+H+_inter_created::Cell_1::Mitochondria_6,  ATP_created::Cell_1::Mitochondria_6
+Pyruvate-::Cell_1::Mitochondria_6,  Pyruvate-_in::Cell_1::Mitochondria_6,  O2::Cell_1::Mitochondria_6,  O2_in::Cell_1::Mitochondria_6
+ATP::Cell_1::Mitochondria_6,  ATP_created::Cell_1::Mitochondria_6
+ADP::Cell_1::Mitochondria_6,  Pi::Cell_1::Mitochondria_6,  Pi_in::Cell_1::Mitochondria_6
+CoA-SH::Cell_1::Mitochondria_6,  Acetyl_CoA::Cell_1::Mitochondria_6, 
+NAD+::Cell_1::Mitochondria_6,  GDP::Cell_1::Mitochondria_6,  FAD::Cell_1::Mitochondria_6
+NADH::Cell_1::Mitochondria_6,  GTP::Cell_1::Mitochondria_6,  FADH2::Cell_1::Mitochondria_6,  CO2::Cell_1::Mitochondria_6
+FADH2::Cell_1::Mitochondria_6,  FADH2_created::Cell_1::Mitochondria_6
+ATP_created::Cell_1::Mitochondria_6,   CO2::Cell_1::Mitochondria_6
+
+*Plot
+ATP_created::Cell_1::Mitochondria_6,   CO2::Cell_1::Mitochondria_6
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_7
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_7,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_7,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_7,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_7,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_7,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_7,   0,  pink,  *
+O2::Cell_1::Mitochondria_7,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_7,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_7,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_7,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_7,        0,  lime,  2
+ADP::Cell_1::Mitochondria_7,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_7,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_7,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_7,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_7,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_7,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_7,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_7,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_7,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_7,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_7,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_7,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_7,         0,  green,  3
+FAD::Cell_1::Mitochondria_7,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_7,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_7,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_7,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_7,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_7,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_7,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_7,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_7,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_7,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_7,  1,  H2O::Cell_1::Mitochondria_7,          1e-6,  1,  H+::Cell_1::Mitochondria_7,  1,  OH-::Cell_1::Mitochondria_7
+r2_1,   20::Cell_1::Mitochondria_7,  1,  H+::Cell_1::Mitochondria_7,  1,  OH-::Cell_1::Mitochondria_7,  1e4,  1,  H2O::Cell_1::Mitochondria_7
+
+rM,    100::Cell_1::Mitochondria_7,  1,  Pyruvate_transport::Cell_1::Mitochondria_7,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_7,  1,  Pyruvate-::Cell_1::Mitochondria_7,  1,  H+::Cell_1::Mitochondria_7,  1,  Pyruvate-_in::Cell_1::Mitochondria_7
+
+rM,    200::Cell_1::Mitochondria_7,  1,  Pyruvate-::Cell_1::Mitochondria_7,  1,  CoA-SH::Cell_1::Mitochondria_7,  1,  NAD+::Cell_1::Mitochondria_7
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_7,  1,  NADH::Cell_1::Mitochondria_7,  1,  H+::Cell_1::Mitochondria_7,  1,  CO2::Cell_1::Mitochondria_7,  1,  NADH_created::Cell_1::Mitochondria_7
+
+rM,    210::Cell_1::Mitochondria_7,  1,  Acetyl_CoA::Cell_1::Mitochondria_7,  3,  NAD+::Cell_1::Mitochondria_7,  1,  GDP::Cell_1::Mitochondria_7,  1,  Pi::Cell_1::Mitochondria_7,  3,  H2O::Cell_1::Mitochondria_7,  1,  FAD::Cell_1::Mitochondria_7
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_7,  3,  NADH::Cell_1::Mitochondria_7,  3,  H+::Cell_1::Mitochondria_7,  1,  GTP::Cell_1::Mitochondria_7,  2,  CO2::Cell_1::Mitochondria_7,  1,  FADH2::Cell_1::Mitochondria_7,  1,  FADH2_created::Cell_1::Mitochondria_7,  3,  NADH_created::Cell_1::Mitochondria_7
+                               
+r2_2,  220::Cell_1::Mitochondria_7,  1,  GTP::Cell_1::Mitochondria_7,  1,  ADP::Cell_1::Mitochondria_7,  1e1,  1,  GDP::Cell_1::Mitochondria_7,  1,  ATP::Cell_1::Mitochondria_7
+
+rM,    300::Cell_1::Mitochondria_7,  2,  NADH::Cell_1::Mitochondria_7,  22,  H+::Cell_1::Mitochondria_7,  1,  O2::Cell_1::Mitochondria_7,  1,  Commp1-3-4::Cell_1::Mitochondria_7
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_7,  20,  H+_inter::Cell_1::Mitochondria_7,  2,  H2O::Cell_1::Mitochondria_7,  1,  Commp1-3-4::Cell_1::Mitochondria_7,  2,  H2O_created::Cell_1::Mitochondria_7,  20,  H+_inter_created::Cell_1::Mitochondria_7
+
+rM,    310::Cell_1::Mitochondria_7,  2,  FADH2::Cell_1::Mitochondria_7, 12,  H+::Cell_1::Mitochondria_7,  1,  O2::Cell_1::Mitochondria_7,  1,  Commp2-3-4::Cell_1::Mitochondria_7
+             1e5
+             2,  FAD::Cell_1::Mitochondria_7,  12,  H+_inter::Cell_1::Mitochondria_7,  2,  H2O::Cell_1::Mitochondria_7,  1,  Commp2-3-4::Cell_1::Mitochondria_7,  2,  H2O_created::Cell_1::Mitochondria_7,  12,  H+_inter_created::Cell_1::Mitochondria_7
+
+rM,    320::Cell_1::Mitochondria_7,  12,  H+_inter::Cell_1::Mitochondria_7,  3,  ADP::Cell_1::Mitochondria_7,  3,  Pi::Cell_1::Mitochondria_7,  1,  ATP_synthase::Cell_1::Mitochondria_7
+             6e3
+             12,  H+::Cell_1::Mitochondria_7,  3,  ATP::Cell_1::Mitochondria_7,  1,  ATP_synthase::Cell_1::Mitochondria_7,  3,  ATP_created::Cell_1::Mitochondria_7
+
+rM,    400::Cell_1::Mitochondria_7,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_7,  1,  NADH_shuttle::Cell_1::Mitochondria_7
+             1e3
+             1,  NADH::Cell_1::Mitochondria_7,  1,  H+::Cell_1::Mitochondria_7,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_7,  1,  NADH_in::Cell_1::Mitochondria_7
+
+rM,    500::Cell_1::Mitochondria_7,  1,  Pi_transport::Cell_1::Mitochondria_7,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_7,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_7,  1,  Pi::Cell_1::Mitochondria_7,  1,  H+::Cell_1::Mitochondria_7,  1,  Pi_in::Cell_1::Mitochondria_7
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_7,  1,  ADP_ATP_transport::Cell_1::Mitochondria_7,  1,  ATP::Cell_1::Mitochondria_7,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_7,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_7
+
+r1_2,  700::Cell_1::Mitochondria_7,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_7,  1,  O2_in::Cell_1::Mitochondria_7
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_7,  H+::Cell_1::Mitochondria_7,  OH-::Cell_1::Mitochondria_7,  H2O_created::Cell_1::Mitochondria_7
+H+::Cell_1::Mitochondria_7,  H+_inter::Cell_1::Mitochondria_7,  OH-::Cell_1::Mitochondria_7
+H+_inter_created::Cell_1::Mitochondria_7,  ATP_created::Cell_1::Mitochondria_7
+Pyruvate-::Cell_1::Mitochondria_7,  Pyruvate-_in::Cell_1::Mitochondria_7,  O2::Cell_1::Mitochondria_7,  O2_in::Cell_1::Mitochondria_7
+ATP::Cell_1::Mitochondria_7,  ATP_created::Cell_1::Mitochondria_7
+ADP::Cell_1::Mitochondria_7,  Pi::Cell_1::Mitochondria_7,  Pi_in::Cell_1::Mitochondria_7
+CoA-SH::Cell_1::Mitochondria_7,  Acetyl_CoA::Cell_1::Mitochondria_7, 
+NAD+::Cell_1::Mitochondria_7,  GDP::Cell_1::Mitochondria_7,  FAD::Cell_1::Mitochondria_7
+NADH::Cell_1::Mitochondria_7,  GTP::Cell_1::Mitochondria_7,  FADH2::Cell_1::Mitochondria_7,  CO2::Cell_1::Mitochondria_7
+FADH2::Cell_1::Mitochondria_7,  FADH2_created::Cell_1::Mitochondria_7
+ATP_created::Cell_1::Mitochondria_7,   CO2::Cell_1::Mitochondria_7
+
+*Plot
+ATP_created::Cell_1::Mitochondria_7,   CO2::Cell_1::Mitochondria_7
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_8
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_8,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_8,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_8,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_8,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_8,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_8,   0,  pink,  *
+O2::Cell_1::Mitochondria_8,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_8,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_8,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_8,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_8,        0,  lime,  2
+ADP::Cell_1::Mitochondria_8,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_8,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_8,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_8,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_8,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_8,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_8,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_8,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_8,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_8,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_8,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_8,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_8,         0,  green,  3
+FAD::Cell_1::Mitochondria_8,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_8,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_8,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_8,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_8,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_8,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_8,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_8,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_8,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_8,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_8,  1,  H2O::Cell_1::Mitochondria_8,          1e-6,  1,  H+::Cell_1::Mitochondria_8,  1,  OH-::Cell_1::Mitochondria_8
+r2_1,   20::Cell_1::Mitochondria_8,  1,  H+::Cell_1::Mitochondria_8,  1,  OH-::Cell_1::Mitochondria_8,  1e4,  1,  H2O::Cell_1::Mitochondria_8
+
+rM,    100::Cell_1::Mitochondria_8,  1,  Pyruvate_transport::Cell_1::Mitochondria_8,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_8,  1,  Pyruvate-::Cell_1::Mitochondria_8,  1,  H+::Cell_1::Mitochondria_8,  1,  Pyruvate-_in::Cell_1::Mitochondria_8
+
+rM,    200::Cell_1::Mitochondria_8,  1,  Pyruvate-::Cell_1::Mitochondria_8,  1,  CoA-SH::Cell_1::Mitochondria_8,  1,  NAD+::Cell_1::Mitochondria_8
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_8,  1,  NADH::Cell_1::Mitochondria_8,  1,  H+::Cell_1::Mitochondria_8,  1,  CO2::Cell_1::Mitochondria_8,  1,  NADH_created::Cell_1::Mitochondria_8
+
+rM,    210::Cell_1::Mitochondria_8,  1,  Acetyl_CoA::Cell_1::Mitochondria_8,  3,  NAD+::Cell_1::Mitochondria_8,  1,  GDP::Cell_1::Mitochondria_8,  1,  Pi::Cell_1::Mitochondria_8,  3,  H2O::Cell_1::Mitochondria_8,  1,  FAD::Cell_1::Mitochondria_8
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_8,  3,  NADH::Cell_1::Mitochondria_8,  3,  H+::Cell_1::Mitochondria_8,  1,  GTP::Cell_1::Mitochondria_8,  2,  CO2::Cell_1::Mitochondria_8,  1,  FADH2::Cell_1::Mitochondria_8,  1,  FADH2_created::Cell_1::Mitochondria_8,  3,  NADH_created::Cell_1::Mitochondria_8
+                               
+r2_2,  220::Cell_1::Mitochondria_8,  1,  GTP::Cell_1::Mitochondria_8,  1,  ADP::Cell_1::Mitochondria_8,  1e1,  1,  GDP::Cell_1::Mitochondria_8,  1,  ATP::Cell_1::Mitochondria_8
+
+rM,    300::Cell_1::Mitochondria_8,  2,  NADH::Cell_1::Mitochondria_8,  22,  H+::Cell_1::Mitochondria_8,  1,  O2::Cell_1::Mitochondria_8,  1,  Commp1-3-4::Cell_1::Mitochondria_8
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_8,  20,  H+_inter::Cell_1::Mitochondria_8,  2,  H2O::Cell_1::Mitochondria_8,  1,  Commp1-3-4::Cell_1::Mitochondria_8,  2,  H2O_created::Cell_1::Mitochondria_8,  20,  H+_inter_created::Cell_1::Mitochondria_8
+
+rM,    310::Cell_1::Mitochondria_8,  2,  FADH2::Cell_1::Mitochondria_8, 12,  H+::Cell_1::Mitochondria_8,  1,  O2::Cell_1::Mitochondria_8,  1,  Commp2-3-4::Cell_1::Mitochondria_8
+             1e5
+             2,  FAD::Cell_1::Mitochondria_8,  12,  H+_inter::Cell_1::Mitochondria_8,  2,  H2O::Cell_1::Mitochondria_8,  1,  Commp2-3-4::Cell_1::Mitochondria_8,  2,  H2O_created::Cell_1::Mitochondria_8,  12,  H+_inter_created::Cell_1::Mitochondria_8
+
+rM,    320::Cell_1::Mitochondria_8,  12,  H+_inter::Cell_1::Mitochondria_8,  3,  ADP::Cell_1::Mitochondria_8,  3,  Pi::Cell_1::Mitochondria_8,  1,  ATP_synthase::Cell_1::Mitochondria_8
+             6e3
+             12,  H+::Cell_1::Mitochondria_8,  3,  ATP::Cell_1::Mitochondria_8,  1,  ATP_synthase::Cell_1::Mitochondria_8,  3,  ATP_created::Cell_1::Mitochondria_8
+
+rM,    400::Cell_1::Mitochondria_8,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_8,  1,  NADH_shuttle::Cell_1::Mitochondria_8
+             1e3
+             1,  NADH::Cell_1::Mitochondria_8,  1,  H+::Cell_1::Mitochondria_8,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_8,  1,  NADH_in::Cell_1::Mitochondria_8
+
+rM,    500::Cell_1::Mitochondria_8,  1,  Pi_transport::Cell_1::Mitochondria_8,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_8,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_8,  1,  Pi::Cell_1::Mitochondria_8,  1,  H+::Cell_1::Mitochondria_8,  1,  Pi_in::Cell_1::Mitochondria_8
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_8,  1,  ADP_ATP_transport::Cell_1::Mitochondria_8,  1,  ATP::Cell_1::Mitochondria_8,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_8,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_8
+
+r1_2,  700::Cell_1::Mitochondria_8,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_8,  1,  O2_in::Cell_1::Mitochondria_8
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_8,  H+::Cell_1::Mitochondria_8,  OH-::Cell_1::Mitochondria_8,  H2O_created::Cell_1::Mitochondria_8
+H+::Cell_1::Mitochondria_8,  H+_inter::Cell_1::Mitochondria_8,  OH-::Cell_1::Mitochondria_8
+H+_inter_created::Cell_1::Mitochondria_8,  ATP_created::Cell_1::Mitochondria_8
+Pyruvate-::Cell_1::Mitochondria_8,  Pyruvate-_in::Cell_1::Mitochondria_8,  O2::Cell_1::Mitochondria_8,  O2_in::Cell_1::Mitochondria_8
+ATP::Cell_1::Mitochondria_8,  ATP_created::Cell_1::Mitochondria_8
+ADP::Cell_1::Mitochondria_8,  Pi::Cell_1::Mitochondria_8,  Pi_in::Cell_1::Mitochondria_8
+CoA-SH::Cell_1::Mitochondria_8,  Acetyl_CoA::Cell_1::Mitochondria_8, 
+NAD+::Cell_1::Mitochondria_8,  GDP::Cell_1::Mitochondria_8,  FAD::Cell_1::Mitochondria_8
+NADH::Cell_1::Mitochondria_8,  GTP::Cell_1::Mitochondria_8,  FADH2::Cell_1::Mitochondria_8,  CO2::Cell_1::Mitochondria_8
+FADH2::Cell_1::Mitochondria_8,  FADH2_created::Cell_1::Mitochondria_8
+ATP_created::Cell_1::Mitochondria_8,   CO2::Cell_1::Mitochondria_8
+
+*Plot
+ATP_created::Cell_1::Mitochondria_8,   CO2::Cell_1::Mitochondria_8
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_9
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_9,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_9,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_9,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_9,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_9,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_9,   0,  pink,  *
+O2::Cell_1::Mitochondria_9,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_9,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_9,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_9,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_9,        0,  lime,  2
+ADP::Cell_1::Mitochondria_9,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_9,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_9,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_9,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_9,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_9,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_9,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_9,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_9,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_9,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_9,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_9,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_9,         0,  green,  3
+FAD::Cell_1::Mitochondria_9,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_9,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_9,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_9,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_9,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_9,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_9,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_9,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_9,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_9,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_9,  1,  H2O::Cell_1::Mitochondria_9,          1e-6,  1,  H+::Cell_1::Mitochondria_9,  1,  OH-::Cell_1::Mitochondria_9
+r2_1,   20::Cell_1::Mitochondria_9,  1,  H+::Cell_1::Mitochondria_9,  1,  OH-::Cell_1::Mitochondria_9,  1e4,  1,  H2O::Cell_1::Mitochondria_9
+
+rM,    100::Cell_1::Mitochondria_9,  1,  Pyruvate_transport::Cell_1::Mitochondria_9,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_9,  1,  Pyruvate-::Cell_1::Mitochondria_9,  1,  H+::Cell_1::Mitochondria_9,  1,  Pyruvate-_in::Cell_1::Mitochondria_9
+
+rM,    200::Cell_1::Mitochondria_9,  1,  Pyruvate-::Cell_1::Mitochondria_9,  1,  CoA-SH::Cell_1::Mitochondria_9,  1,  NAD+::Cell_1::Mitochondria_9
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_9,  1,  NADH::Cell_1::Mitochondria_9,  1,  H+::Cell_1::Mitochondria_9,  1,  CO2::Cell_1::Mitochondria_9,  1,  NADH_created::Cell_1::Mitochondria_9
+
+rM,    210::Cell_1::Mitochondria_9,  1,  Acetyl_CoA::Cell_1::Mitochondria_9,  3,  NAD+::Cell_1::Mitochondria_9,  1,  GDP::Cell_1::Mitochondria_9,  1,  Pi::Cell_1::Mitochondria_9,  3,  H2O::Cell_1::Mitochondria_9,  1,  FAD::Cell_1::Mitochondria_9
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_9,  3,  NADH::Cell_1::Mitochondria_9,  3,  H+::Cell_1::Mitochondria_9,  1,  GTP::Cell_1::Mitochondria_9,  2,  CO2::Cell_1::Mitochondria_9,  1,  FADH2::Cell_1::Mitochondria_9,  1,  FADH2_created::Cell_1::Mitochondria_9,  3,  NADH_created::Cell_1::Mitochondria_9
+                               
+r2_2,  220::Cell_1::Mitochondria_9,  1,  GTP::Cell_1::Mitochondria_9,  1,  ADP::Cell_1::Mitochondria_9,  1e1,  1,  GDP::Cell_1::Mitochondria_9,  1,  ATP::Cell_1::Mitochondria_9
+
+rM,    300::Cell_1::Mitochondria_9,  2,  NADH::Cell_1::Mitochondria_9,  22,  H+::Cell_1::Mitochondria_9,  1,  O2::Cell_1::Mitochondria_9,  1,  Commp1-3-4::Cell_1::Mitochondria_9
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_9,  20,  H+_inter::Cell_1::Mitochondria_9,  2,  H2O::Cell_1::Mitochondria_9,  1,  Commp1-3-4::Cell_1::Mitochondria_9,  2,  H2O_created::Cell_1::Mitochondria_9,  20,  H+_inter_created::Cell_1::Mitochondria_9
+
+rM,    310::Cell_1::Mitochondria_9,  2,  FADH2::Cell_1::Mitochondria_9, 12,  H+::Cell_1::Mitochondria_9,  1,  O2::Cell_1::Mitochondria_9,  1,  Commp2-3-4::Cell_1::Mitochondria_9
+             1e5
+             2,  FAD::Cell_1::Mitochondria_9,  12,  H+_inter::Cell_1::Mitochondria_9,  2,  H2O::Cell_1::Mitochondria_9,  1,  Commp2-3-4::Cell_1::Mitochondria_9,  2,  H2O_created::Cell_1::Mitochondria_9,  12,  H+_inter_created::Cell_1::Mitochondria_9
+
+rM,    320::Cell_1::Mitochondria_9,  12,  H+_inter::Cell_1::Mitochondria_9,  3,  ADP::Cell_1::Mitochondria_9,  3,  Pi::Cell_1::Mitochondria_9,  1,  ATP_synthase::Cell_1::Mitochondria_9
+             6e3
+             12,  H+::Cell_1::Mitochondria_9,  3,  ATP::Cell_1::Mitochondria_9,  1,  ATP_synthase::Cell_1::Mitochondria_9,  3,  ATP_created::Cell_1::Mitochondria_9
+
+rM,    400::Cell_1::Mitochondria_9,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_9,  1,  NADH_shuttle::Cell_1::Mitochondria_9
+             1e3
+             1,  NADH::Cell_1::Mitochondria_9,  1,  H+::Cell_1::Mitochondria_9,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_9,  1,  NADH_in::Cell_1::Mitochondria_9
+
+rM,    500::Cell_1::Mitochondria_9,  1,  Pi_transport::Cell_1::Mitochondria_9,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_9,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_9,  1,  Pi::Cell_1::Mitochondria_9,  1,  H+::Cell_1::Mitochondria_9,  1,  Pi_in::Cell_1::Mitochondria_9
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_9,  1,  ADP_ATP_transport::Cell_1::Mitochondria_9,  1,  ATP::Cell_1::Mitochondria_9,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_9,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_9
+
+r1_2,  700::Cell_1::Mitochondria_9,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_9,  1,  O2_in::Cell_1::Mitochondria_9
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_9,  H+::Cell_1::Mitochondria_9,  OH-::Cell_1::Mitochondria_9,  H2O_created::Cell_1::Mitochondria_9
+H+::Cell_1::Mitochondria_9,  H+_inter::Cell_1::Mitochondria_9,  OH-::Cell_1::Mitochondria_9
+H+_inter_created::Cell_1::Mitochondria_9,  ATP_created::Cell_1::Mitochondria_9
+Pyruvate-::Cell_1::Mitochondria_9,  Pyruvate-_in::Cell_1::Mitochondria_9,  O2::Cell_1::Mitochondria_9,  O2_in::Cell_1::Mitochondria_9
+ATP::Cell_1::Mitochondria_9,  ATP_created::Cell_1::Mitochondria_9
+ADP::Cell_1::Mitochondria_9,  Pi::Cell_1::Mitochondria_9,  Pi_in::Cell_1::Mitochondria_9
+CoA-SH::Cell_1::Mitochondria_9,  Acetyl_CoA::Cell_1::Mitochondria_9, 
+NAD+::Cell_1::Mitochondria_9,  GDP::Cell_1::Mitochondria_9,  FAD::Cell_1::Mitochondria_9
+NADH::Cell_1::Mitochondria_9,  GTP::Cell_1::Mitochondria_9,  FADH2::Cell_1::Mitochondria_9,  CO2::Cell_1::Mitochondria_9
+FADH2::Cell_1::Mitochondria_9,  FADH2_created::Cell_1::Mitochondria_9
+ATP_created::Cell_1::Mitochondria_9,   CO2::Cell_1::Mitochondria_9
+
+*Plot
+ATP_created::Cell_1::Mitochondria_9,   CO2::Cell_1::Mitochondria_9
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_10
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_10,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_10,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_10,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_10,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_10,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_10,   0,  pink,  *
+O2::Cell_1::Mitochondria_10,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_10,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_10,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_10,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_10,        0,  lime,  2
+ADP::Cell_1::Mitochondria_10,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_10,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_10,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_10,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_10,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_10,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_10,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_10,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_10,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_10,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_10,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_10,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_10,         0,  green,  3
+FAD::Cell_1::Mitochondria_10,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_10,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_10,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_10,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_10,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_10,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_10,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_10,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_10,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_10,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_10,  1,  H2O::Cell_1::Mitochondria_10,          1e-6,  1,  H+::Cell_1::Mitochondria_10,  1,  OH-::Cell_1::Mitochondria_10
+r2_1,   20::Cell_1::Mitochondria_10,  1,  H+::Cell_1::Mitochondria_10,  1,  OH-::Cell_1::Mitochondria_10,  1e4,  1,  H2O::Cell_1::Mitochondria_10
+
+rM,    100::Cell_1::Mitochondria_10,  1,  Pyruvate_transport::Cell_1::Mitochondria_10,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_10,  1,  Pyruvate-::Cell_1::Mitochondria_10,  1,  H+::Cell_1::Mitochondria_10,  1,  Pyruvate-_in::Cell_1::Mitochondria_10
+
+rM,    200::Cell_1::Mitochondria_10,  1,  Pyruvate-::Cell_1::Mitochondria_10,  1,  CoA-SH::Cell_1::Mitochondria_10,  1,  NAD+::Cell_1::Mitochondria_10
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_10,  1,  NADH::Cell_1::Mitochondria_10,  1,  H+::Cell_1::Mitochondria_10,  1,  CO2::Cell_1::Mitochondria_10,  1,  NADH_created::Cell_1::Mitochondria_10
+
+rM,    210::Cell_1::Mitochondria_10,  1,  Acetyl_CoA::Cell_1::Mitochondria_10,  3,  NAD+::Cell_1::Mitochondria_10,  1,  GDP::Cell_1::Mitochondria_10,  1,  Pi::Cell_1::Mitochondria_10,  3,  H2O::Cell_1::Mitochondria_10,  1,  FAD::Cell_1::Mitochondria_10
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_10,  3,  NADH::Cell_1::Mitochondria_10,  3,  H+::Cell_1::Mitochondria_10,  1,  GTP::Cell_1::Mitochondria_10,  2,  CO2::Cell_1::Mitochondria_10,  1,  FADH2::Cell_1::Mitochondria_10,  1,  FADH2_created::Cell_1::Mitochondria_10,  3,  NADH_created::Cell_1::Mitochondria_10
+                               
+r2_2,  220::Cell_1::Mitochondria_10,  1,  GTP::Cell_1::Mitochondria_10,  1,  ADP::Cell_1::Mitochondria_10,  1e1,  1,  GDP::Cell_1::Mitochondria_10,  1,  ATP::Cell_1::Mitochondria_10
+
+rM,    300::Cell_1::Mitochondria_10,  2,  NADH::Cell_1::Mitochondria_10,  22,  H+::Cell_1::Mitochondria_10,  1,  O2::Cell_1::Mitochondria_10,  1,  Commp1-3-4::Cell_1::Mitochondria_10
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_10,  20,  H+_inter::Cell_1::Mitochondria_10,  2,  H2O::Cell_1::Mitochondria_10,  1,  Commp1-3-4::Cell_1::Mitochondria_10,  2,  H2O_created::Cell_1::Mitochondria_10,  20,  H+_inter_created::Cell_1::Mitochondria_10
+
+rM,    310::Cell_1::Mitochondria_10,  2,  FADH2::Cell_1::Mitochondria_10, 12,  H+::Cell_1::Mitochondria_10,  1,  O2::Cell_1::Mitochondria_10,  1,  Commp2-3-4::Cell_1::Mitochondria_10
+             1e5
+             2,  FAD::Cell_1::Mitochondria_10,  12,  H+_inter::Cell_1::Mitochondria_10,  2,  H2O::Cell_1::Mitochondria_10,  1,  Commp2-3-4::Cell_1::Mitochondria_10,  2,  H2O_created::Cell_1::Mitochondria_10,  12,  H+_inter_created::Cell_1::Mitochondria_10
+
+rM,    320::Cell_1::Mitochondria_10,  12,  H+_inter::Cell_1::Mitochondria_10,  3,  ADP::Cell_1::Mitochondria_10,  3,  Pi::Cell_1::Mitochondria_10,  1,  ATP_synthase::Cell_1::Mitochondria_10
+             6e3
+             12,  H+::Cell_1::Mitochondria_10,  3,  ATP::Cell_1::Mitochondria_10,  1,  ATP_synthase::Cell_1::Mitochondria_10,  3,  ATP_created::Cell_1::Mitochondria_10
+
+rM,    400::Cell_1::Mitochondria_10,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_10,  1,  NADH_shuttle::Cell_1::Mitochondria_10
+             1e3
+             1,  NADH::Cell_1::Mitochondria_10,  1,  H+::Cell_1::Mitochondria_10,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_10,  1,  NADH_in::Cell_1::Mitochondria_10
+
+rM,    500::Cell_1::Mitochondria_10,  1,  Pi_transport::Cell_1::Mitochondria_10,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_10,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_10,  1,  Pi::Cell_1::Mitochondria_10,  1,  H+::Cell_1::Mitochondria_10,  1,  Pi_in::Cell_1::Mitochondria_10
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_10,  1,  ADP_ATP_transport::Cell_1::Mitochondria_10,  1,  ATP::Cell_1::Mitochondria_10,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_10,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_10
+
+r1_2,  700::Cell_1::Mitochondria_10,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_10,  1,  O2_in::Cell_1::Mitochondria_10
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_10,  H+::Cell_1::Mitochondria_10,  OH-::Cell_1::Mitochondria_10,  H2O_created::Cell_1::Mitochondria_10
+H+::Cell_1::Mitochondria_10,  H+_inter::Cell_1::Mitochondria_10,  OH-::Cell_1::Mitochondria_10
+H+_inter_created::Cell_1::Mitochondria_10,  ATP_created::Cell_1::Mitochondria_10
+Pyruvate-::Cell_1::Mitochondria_10,  Pyruvate-_in::Cell_1::Mitochondria_10,  O2::Cell_1::Mitochondria_10,  O2_in::Cell_1::Mitochondria_10
+ATP::Cell_1::Mitochondria_10,  ATP_created::Cell_1::Mitochondria_10
+ADP::Cell_1::Mitochondria_10,  Pi::Cell_1::Mitochondria_10,  Pi_in::Cell_1::Mitochondria_10
+CoA-SH::Cell_1::Mitochondria_10,  Acetyl_CoA::Cell_1::Mitochondria_10, 
+NAD+::Cell_1::Mitochondria_10,  GDP::Cell_1::Mitochondria_10,  FAD::Cell_1::Mitochondria_10
+NADH::Cell_1::Mitochondria_10,  GTP::Cell_1::Mitochondria_10,  FADH2::Cell_1::Mitochondria_10,  CO2::Cell_1::Mitochondria_10
+FADH2::Cell_1::Mitochondria_10,  FADH2_created::Cell_1::Mitochondria_10
+ATP_created::Cell_1::Mitochondria_10,   CO2::Cell_1::Mitochondria_10
+
+*Plot
+ATP_created::Cell_1::Mitochondria_10,   CO2::Cell_1::Mitochondria_10
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_11
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_11,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_11,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_11,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_11,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_11,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_11,   0,  pink,  *
+O2::Cell_1::Mitochondria_11,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_11,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_11,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_11,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_11,        0,  lime,  2
+ADP::Cell_1::Mitochondria_11,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_11,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_11,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_11,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_11,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_11,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_11,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_11,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_11,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_11,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_11,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_11,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_11,         0,  green,  3
+FAD::Cell_1::Mitochondria_11,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_11,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_11,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_11,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_11,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_11,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_11,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_11,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_11,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_11,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_11,  1,  H2O::Cell_1::Mitochondria_11,          1e-6,  1,  H+::Cell_1::Mitochondria_11,  1,  OH-::Cell_1::Mitochondria_11
+r2_1,   20::Cell_1::Mitochondria_11,  1,  H+::Cell_1::Mitochondria_11,  1,  OH-::Cell_1::Mitochondria_11,  1e4,  1,  H2O::Cell_1::Mitochondria_11
+
+rM,    100::Cell_1::Mitochondria_11,  1,  Pyruvate_transport::Cell_1::Mitochondria_11,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_11,  1,  Pyruvate-::Cell_1::Mitochondria_11,  1,  H+::Cell_1::Mitochondria_11,  1,  Pyruvate-_in::Cell_1::Mitochondria_11
+
+rM,    200::Cell_1::Mitochondria_11,  1,  Pyruvate-::Cell_1::Mitochondria_11,  1,  CoA-SH::Cell_1::Mitochondria_11,  1,  NAD+::Cell_1::Mitochondria_11
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_11,  1,  NADH::Cell_1::Mitochondria_11,  1,  H+::Cell_1::Mitochondria_11,  1,  CO2::Cell_1::Mitochondria_11,  1,  NADH_created::Cell_1::Mitochondria_11
+
+rM,    210::Cell_1::Mitochondria_11,  1,  Acetyl_CoA::Cell_1::Mitochondria_11,  3,  NAD+::Cell_1::Mitochondria_11,  1,  GDP::Cell_1::Mitochondria_11,  1,  Pi::Cell_1::Mitochondria_11,  3,  H2O::Cell_1::Mitochondria_11,  1,  FAD::Cell_1::Mitochondria_11
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_11,  3,  NADH::Cell_1::Mitochondria_11,  3,  H+::Cell_1::Mitochondria_11,  1,  GTP::Cell_1::Mitochondria_11,  2,  CO2::Cell_1::Mitochondria_11,  1,  FADH2::Cell_1::Mitochondria_11,  1,  FADH2_created::Cell_1::Mitochondria_11,  3,  NADH_created::Cell_1::Mitochondria_11
+                               
+r2_2,  220::Cell_1::Mitochondria_11,  1,  GTP::Cell_1::Mitochondria_11,  1,  ADP::Cell_1::Mitochondria_11,  1e1,  1,  GDP::Cell_1::Mitochondria_11,  1,  ATP::Cell_1::Mitochondria_11
+
+rM,    300::Cell_1::Mitochondria_11,  2,  NADH::Cell_1::Mitochondria_11,  22,  H+::Cell_1::Mitochondria_11,  1,  O2::Cell_1::Mitochondria_11,  1,  Commp1-3-4::Cell_1::Mitochondria_11
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_11,  20,  H+_inter::Cell_1::Mitochondria_11,  2,  H2O::Cell_1::Mitochondria_11,  1,  Commp1-3-4::Cell_1::Mitochondria_11,  2,  H2O_created::Cell_1::Mitochondria_11,  20,  H+_inter_created::Cell_1::Mitochondria_11
+
+rM,    310::Cell_1::Mitochondria_11,  2,  FADH2::Cell_1::Mitochondria_11, 12,  H+::Cell_1::Mitochondria_11,  1,  O2::Cell_1::Mitochondria_11,  1,  Commp2-3-4::Cell_1::Mitochondria_11
+             1e5
+             2,  FAD::Cell_1::Mitochondria_11,  12,  H+_inter::Cell_1::Mitochondria_11,  2,  H2O::Cell_1::Mitochondria_11,  1,  Commp2-3-4::Cell_1::Mitochondria_11,  2,  H2O_created::Cell_1::Mitochondria_11,  12,  H+_inter_created::Cell_1::Mitochondria_11
+
+rM,    320::Cell_1::Mitochondria_11,  12,  H+_inter::Cell_1::Mitochondria_11,  3,  ADP::Cell_1::Mitochondria_11,  3,  Pi::Cell_1::Mitochondria_11,  1,  ATP_synthase::Cell_1::Mitochondria_11
+             6e3
+             12,  H+::Cell_1::Mitochondria_11,  3,  ATP::Cell_1::Mitochondria_11,  1,  ATP_synthase::Cell_1::Mitochondria_11,  3,  ATP_created::Cell_1::Mitochondria_11
+
+rM,    400::Cell_1::Mitochondria_11,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_11,  1,  NADH_shuttle::Cell_1::Mitochondria_11
+             1e3
+             1,  NADH::Cell_1::Mitochondria_11,  1,  H+::Cell_1::Mitochondria_11,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_11,  1,  NADH_in::Cell_1::Mitochondria_11
+
+rM,    500::Cell_1::Mitochondria_11,  1,  Pi_transport::Cell_1::Mitochondria_11,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_11,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_11,  1,  Pi::Cell_1::Mitochondria_11,  1,  H+::Cell_1::Mitochondria_11,  1,  Pi_in::Cell_1::Mitochondria_11
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_11,  1,  ADP_ATP_transport::Cell_1::Mitochondria_11,  1,  ATP::Cell_1::Mitochondria_11,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_11,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_11
+
+r1_2,  700::Cell_1::Mitochondria_11,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_11,  1,  O2_in::Cell_1::Mitochondria_11
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_11,  H+::Cell_1::Mitochondria_11,  OH-::Cell_1::Mitochondria_11,  H2O_created::Cell_1::Mitochondria_11
+H+::Cell_1::Mitochondria_11,  H+_inter::Cell_1::Mitochondria_11,  OH-::Cell_1::Mitochondria_11
+H+_inter_created::Cell_1::Mitochondria_11,  ATP_created::Cell_1::Mitochondria_11
+Pyruvate-::Cell_1::Mitochondria_11,  Pyruvate-_in::Cell_1::Mitochondria_11,  O2::Cell_1::Mitochondria_11,  O2_in::Cell_1::Mitochondria_11
+ATP::Cell_1::Mitochondria_11,  ATP_created::Cell_1::Mitochondria_11
+ADP::Cell_1::Mitochondria_11,  Pi::Cell_1::Mitochondria_11,  Pi_in::Cell_1::Mitochondria_11
+CoA-SH::Cell_1::Mitochondria_11,  Acetyl_CoA::Cell_1::Mitochondria_11, 
+NAD+::Cell_1::Mitochondria_11,  GDP::Cell_1::Mitochondria_11,  FAD::Cell_1::Mitochondria_11
+NADH::Cell_1::Mitochondria_11,  GTP::Cell_1::Mitochondria_11,  FADH2::Cell_1::Mitochondria_11,  CO2::Cell_1::Mitochondria_11
+FADH2::Cell_1::Mitochondria_11,  FADH2_created::Cell_1::Mitochondria_11
+ATP_created::Cell_1::Mitochondria_11,   CO2::Cell_1::Mitochondria_11
+
+*Plot
+ATP_created::Cell_1::Mitochondria_11,   CO2::Cell_1::Mitochondria_11
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_12
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_12,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_12,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_12,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_12,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_12,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_12,   0,  pink,  *
+O2::Cell_1::Mitochondria_12,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_12,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_12,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_12,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_12,        0,  lime,  2
+ADP::Cell_1::Mitochondria_12,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_12,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_12,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_12,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_12,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_12,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_12,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_12,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_12,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_12,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_12,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_12,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_12,         0,  green,  3
+FAD::Cell_1::Mitochondria_12,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_12,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_12,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_12,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_12,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_12,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_12,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_12,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_12,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_12,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_12,  1,  H2O::Cell_1::Mitochondria_12,          1e-6,  1,  H+::Cell_1::Mitochondria_12,  1,  OH-::Cell_1::Mitochondria_12
+r2_1,   20::Cell_1::Mitochondria_12,  1,  H+::Cell_1::Mitochondria_12,  1,  OH-::Cell_1::Mitochondria_12,  1e4,  1,  H2O::Cell_1::Mitochondria_12
+
+rM,    100::Cell_1::Mitochondria_12,  1,  Pyruvate_transport::Cell_1::Mitochondria_12,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_12,  1,  Pyruvate-::Cell_1::Mitochondria_12,  1,  H+::Cell_1::Mitochondria_12,  1,  Pyruvate-_in::Cell_1::Mitochondria_12
+
+rM,    200::Cell_1::Mitochondria_12,  1,  Pyruvate-::Cell_1::Mitochondria_12,  1,  CoA-SH::Cell_1::Mitochondria_12,  1,  NAD+::Cell_1::Mitochondria_12
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_12,  1,  NADH::Cell_1::Mitochondria_12,  1,  H+::Cell_1::Mitochondria_12,  1,  CO2::Cell_1::Mitochondria_12,  1,  NADH_created::Cell_1::Mitochondria_12
+
+rM,    210::Cell_1::Mitochondria_12,  1,  Acetyl_CoA::Cell_1::Mitochondria_12,  3,  NAD+::Cell_1::Mitochondria_12,  1,  GDP::Cell_1::Mitochondria_12,  1,  Pi::Cell_1::Mitochondria_12,  3,  H2O::Cell_1::Mitochondria_12,  1,  FAD::Cell_1::Mitochondria_12
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_12,  3,  NADH::Cell_1::Mitochondria_12,  3,  H+::Cell_1::Mitochondria_12,  1,  GTP::Cell_1::Mitochondria_12,  2,  CO2::Cell_1::Mitochondria_12,  1,  FADH2::Cell_1::Mitochondria_12,  1,  FADH2_created::Cell_1::Mitochondria_12,  3,  NADH_created::Cell_1::Mitochondria_12
+                               
+r2_2,  220::Cell_1::Mitochondria_12,  1,  GTP::Cell_1::Mitochondria_12,  1,  ADP::Cell_1::Mitochondria_12,  1e1,  1,  GDP::Cell_1::Mitochondria_12,  1,  ATP::Cell_1::Mitochondria_12
+
+rM,    300::Cell_1::Mitochondria_12,  2,  NADH::Cell_1::Mitochondria_12,  22,  H+::Cell_1::Mitochondria_12,  1,  O2::Cell_1::Mitochondria_12,  1,  Commp1-3-4::Cell_1::Mitochondria_12
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_12,  20,  H+_inter::Cell_1::Mitochondria_12,  2,  H2O::Cell_1::Mitochondria_12,  1,  Commp1-3-4::Cell_1::Mitochondria_12,  2,  H2O_created::Cell_1::Mitochondria_12,  20,  H+_inter_created::Cell_1::Mitochondria_12
+
+rM,    310::Cell_1::Mitochondria_12,  2,  FADH2::Cell_1::Mitochondria_12, 12,  H+::Cell_1::Mitochondria_12,  1,  O2::Cell_1::Mitochondria_12,  1,  Commp2-3-4::Cell_1::Mitochondria_12
+             1e5
+             2,  FAD::Cell_1::Mitochondria_12,  12,  H+_inter::Cell_1::Mitochondria_12,  2,  H2O::Cell_1::Mitochondria_12,  1,  Commp2-3-4::Cell_1::Mitochondria_12,  2,  H2O_created::Cell_1::Mitochondria_12,  12,  H+_inter_created::Cell_1::Mitochondria_12
+
+rM,    320::Cell_1::Mitochondria_12,  12,  H+_inter::Cell_1::Mitochondria_12,  3,  ADP::Cell_1::Mitochondria_12,  3,  Pi::Cell_1::Mitochondria_12,  1,  ATP_synthase::Cell_1::Mitochondria_12
+             6e3
+             12,  H+::Cell_1::Mitochondria_12,  3,  ATP::Cell_1::Mitochondria_12,  1,  ATP_synthase::Cell_1::Mitochondria_12,  3,  ATP_created::Cell_1::Mitochondria_12
+
+rM,    400::Cell_1::Mitochondria_12,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_12,  1,  NADH_shuttle::Cell_1::Mitochondria_12
+             1e3
+             1,  NADH::Cell_1::Mitochondria_12,  1,  H+::Cell_1::Mitochondria_12,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_12,  1,  NADH_in::Cell_1::Mitochondria_12
+
+rM,    500::Cell_1::Mitochondria_12,  1,  Pi_transport::Cell_1::Mitochondria_12,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_12,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_12,  1,  Pi::Cell_1::Mitochondria_12,  1,  H+::Cell_1::Mitochondria_12,  1,  Pi_in::Cell_1::Mitochondria_12
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_12,  1,  ADP_ATP_transport::Cell_1::Mitochondria_12,  1,  ATP::Cell_1::Mitochondria_12,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_12,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_12
+
+r1_2,  700::Cell_1::Mitochondria_12,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_12,  1,  O2_in::Cell_1::Mitochondria_12
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_12,  H+::Cell_1::Mitochondria_12,  OH-::Cell_1::Mitochondria_12,  H2O_created::Cell_1::Mitochondria_12
+H+::Cell_1::Mitochondria_12,  H+_inter::Cell_1::Mitochondria_12,  OH-::Cell_1::Mitochondria_12
+H+_inter_created::Cell_1::Mitochondria_12,  ATP_created::Cell_1::Mitochondria_12
+Pyruvate-::Cell_1::Mitochondria_12,  Pyruvate-_in::Cell_1::Mitochondria_12,  O2::Cell_1::Mitochondria_12,  O2_in::Cell_1::Mitochondria_12
+ATP::Cell_1::Mitochondria_12,  ATP_created::Cell_1::Mitochondria_12
+ADP::Cell_1::Mitochondria_12,  Pi::Cell_1::Mitochondria_12,  Pi_in::Cell_1::Mitochondria_12
+CoA-SH::Cell_1::Mitochondria_12,  Acetyl_CoA::Cell_1::Mitochondria_12, 
+NAD+::Cell_1::Mitochondria_12,  GDP::Cell_1::Mitochondria_12,  FAD::Cell_1::Mitochondria_12
+NADH::Cell_1::Mitochondria_12,  GTP::Cell_1::Mitochondria_12,  FADH2::Cell_1::Mitochondria_12,  CO2::Cell_1::Mitochondria_12
+FADH2::Cell_1::Mitochondria_12,  FADH2_created::Cell_1::Mitochondria_12
+ATP_created::Cell_1::Mitochondria_12,   CO2::Cell_1::Mitochondria_12
+
+*Plot
+ATP_created::Cell_1::Mitochondria_12,   CO2::Cell_1::Mitochondria_12
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_13
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_13,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_13,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_13,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_13,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_13,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_13,   0,  pink,  *
+O2::Cell_1::Mitochondria_13,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_13,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_13,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_13,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_13,        0,  lime,  2
+ADP::Cell_1::Mitochondria_13,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_13,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_13,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_13,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_13,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_13,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_13,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_13,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_13,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_13,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_13,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_13,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_13,         0,  green,  3
+FAD::Cell_1::Mitochondria_13,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_13,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_13,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_13,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_13,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_13,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_13,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_13,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_13,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_13,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_13,  1,  H2O::Cell_1::Mitochondria_13,          1e-6,  1,  H+::Cell_1::Mitochondria_13,  1,  OH-::Cell_1::Mitochondria_13
+r2_1,   20::Cell_1::Mitochondria_13,  1,  H+::Cell_1::Mitochondria_13,  1,  OH-::Cell_1::Mitochondria_13,  1e4,  1,  H2O::Cell_1::Mitochondria_13
+
+rM,    100::Cell_1::Mitochondria_13,  1,  Pyruvate_transport::Cell_1::Mitochondria_13,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_13,  1,  Pyruvate-::Cell_1::Mitochondria_13,  1,  H+::Cell_1::Mitochondria_13,  1,  Pyruvate-_in::Cell_1::Mitochondria_13
+
+rM,    200::Cell_1::Mitochondria_13,  1,  Pyruvate-::Cell_1::Mitochondria_13,  1,  CoA-SH::Cell_1::Mitochondria_13,  1,  NAD+::Cell_1::Mitochondria_13
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_13,  1,  NADH::Cell_1::Mitochondria_13,  1,  H+::Cell_1::Mitochondria_13,  1,  CO2::Cell_1::Mitochondria_13,  1,  NADH_created::Cell_1::Mitochondria_13
+
+rM,    210::Cell_1::Mitochondria_13,  1,  Acetyl_CoA::Cell_1::Mitochondria_13,  3,  NAD+::Cell_1::Mitochondria_13,  1,  GDP::Cell_1::Mitochondria_13,  1,  Pi::Cell_1::Mitochondria_13,  3,  H2O::Cell_1::Mitochondria_13,  1,  FAD::Cell_1::Mitochondria_13
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_13,  3,  NADH::Cell_1::Mitochondria_13,  3,  H+::Cell_1::Mitochondria_13,  1,  GTP::Cell_1::Mitochondria_13,  2,  CO2::Cell_1::Mitochondria_13,  1,  FADH2::Cell_1::Mitochondria_13,  1,  FADH2_created::Cell_1::Mitochondria_13,  3,  NADH_created::Cell_1::Mitochondria_13
+                               
+r2_2,  220::Cell_1::Mitochondria_13,  1,  GTP::Cell_1::Mitochondria_13,  1,  ADP::Cell_1::Mitochondria_13,  1e1,  1,  GDP::Cell_1::Mitochondria_13,  1,  ATP::Cell_1::Mitochondria_13
+
+rM,    300::Cell_1::Mitochondria_13,  2,  NADH::Cell_1::Mitochondria_13,  22,  H+::Cell_1::Mitochondria_13,  1,  O2::Cell_1::Mitochondria_13,  1,  Commp1-3-4::Cell_1::Mitochondria_13
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_13,  20,  H+_inter::Cell_1::Mitochondria_13,  2,  H2O::Cell_1::Mitochondria_13,  1,  Commp1-3-4::Cell_1::Mitochondria_13,  2,  H2O_created::Cell_1::Mitochondria_13,  20,  H+_inter_created::Cell_1::Mitochondria_13
+
+rM,    310::Cell_1::Mitochondria_13,  2,  FADH2::Cell_1::Mitochondria_13, 12,  H+::Cell_1::Mitochondria_13,  1,  O2::Cell_1::Mitochondria_13,  1,  Commp2-3-4::Cell_1::Mitochondria_13
+             1e5
+             2,  FAD::Cell_1::Mitochondria_13,  12,  H+_inter::Cell_1::Mitochondria_13,  2,  H2O::Cell_1::Mitochondria_13,  1,  Commp2-3-4::Cell_1::Mitochondria_13,  2,  H2O_created::Cell_1::Mitochondria_13,  12,  H+_inter_created::Cell_1::Mitochondria_13
+
+rM,    320::Cell_1::Mitochondria_13,  12,  H+_inter::Cell_1::Mitochondria_13,  3,  ADP::Cell_1::Mitochondria_13,  3,  Pi::Cell_1::Mitochondria_13,  1,  ATP_synthase::Cell_1::Mitochondria_13
+             6e3
+             12,  H+::Cell_1::Mitochondria_13,  3,  ATP::Cell_1::Mitochondria_13,  1,  ATP_synthase::Cell_1::Mitochondria_13,  3,  ATP_created::Cell_1::Mitochondria_13
+
+rM,    400::Cell_1::Mitochondria_13,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_13,  1,  NADH_shuttle::Cell_1::Mitochondria_13
+             1e3
+             1,  NADH::Cell_1::Mitochondria_13,  1,  H+::Cell_1::Mitochondria_13,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_13,  1,  NADH_in::Cell_1::Mitochondria_13
+
+rM,    500::Cell_1::Mitochondria_13,  1,  Pi_transport::Cell_1::Mitochondria_13,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_13,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_13,  1,  Pi::Cell_1::Mitochondria_13,  1,  H+::Cell_1::Mitochondria_13,  1,  Pi_in::Cell_1::Mitochondria_13
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_13,  1,  ADP_ATP_transport::Cell_1::Mitochondria_13,  1,  ATP::Cell_1::Mitochondria_13,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_13,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_13
+
+r1_2,  700::Cell_1::Mitochondria_13,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_13,  1,  O2_in::Cell_1::Mitochondria_13
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_13,  H+::Cell_1::Mitochondria_13,  OH-::Cell_1::Mitochondria_13,  H2O_created::Cell_1::Mitochondria_13
+H+::Cell_1::Mitochondria_13,  H+_inter::Cell_1::Mitochondria_13,  OH-::Cell_1::Mitochondria_13
+H+_inter_created::Cell_1::Mitochondria_13,  ATP_created::Cell_1::Mitochondria_13
+Pyruvate-::Cell_1::Mitochondria_13,  Pyruvate-_in::Cell_1::Mitochondria_13,  O2::Cell_1::Mitochondria_13,  O2_in::Cell_1::Mitochondria_13
+ATP::Cell_1::Mitochondria_13,  ATP_created::Cell_1::Mitochondria_13
+ADP::Cell_1::Mitochondria_13,  Pi::Cell_1::Mitochondria_13,  Pi_in::Cell_1::Mitochondria_13
+CoA-SH::Cell_1::Mitochondria_13,  Acetyl_CoA::Cell_1::Mitochondria_13, 
+NAD+::Cell_1::Mitochondria_13,  GDP::Cell_1::Mitochondria_13,  FAD::Cell_1::Mitochondria_13
+NADH::Cell_1::Mitochondria_13,  GTP::Cell_1::Mitochondria_13,  FADH2::Cell_1::Mitochondria_13,  CO2::Cell_1::Mitochondria_13
+FADH2::Cell_1::Mitochondria_13,  FADH2_created::Cell_1::Mitochondria_13
+ATP_created::Cell_1::Mitochondria_13,   CO2::Cell_1::Mitochondria_13
+
+*Plot
+ATP_created::Cell_1::Mitochondria_13,   CO2::Cell_1::Mitochondria_13
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_14
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_14,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_14,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_14,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_14,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_14,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_14,   0,  pink,  *
+O2::Cell_1::Mitochondria_14,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_14,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_14,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_14,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_14,        0,  lime,  2
+ADP::Cell_1::Mitochondria_14,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_14,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_14,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_14,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_14,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_14,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_14,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_14,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_14,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_14,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_14,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_14,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_14,         0,  green,  3
+FAD::Cell_1::Mitochondria_14,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_14,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_14,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_14,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_14,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_14,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_14,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_14,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_14,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_14,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_14,  1,  H2O::Cell_1::Mitochondria_14,          1e-6,  1,  H+::Cell_1::Mitochondria_14,  1,  OH-::Cell_1::Mitochondria_14
+r2_1,   20::Cell_1::Mitochondria_14,  1,  H+::Cell_1::Mitochondria_14,  1,  OH-::Cell_1::Mitochondria_14,  1e4,  1,  H2O::Cell_1::Mitochondria_14
+
+rM,    100::Cell_1::Mitochondria_14,  1,  Pyruvate_transport::Cell_1::Mitochondria_14,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_14,  1,  Pyruvate-::Cell_1::Mitochondria_14,  1,  H+::Cell_1::Mitochondria_14,  1,  Pyruvate-_in::Cell_1::Mitochondria_14
+
+rM,    200::Cell_1::Mitochondria_14,  1,  Pyruvate-::Cell_1::Mitochondria_14,  1,  CoA-SH::Cell_1::Mitochondria_14,  1,  NAD+::Cell_1::Mitochondria_14
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_14,  1,  NADH::Cell_1::Mitochondria_14,  1,  H+::Cell_1::Mitochondria_14,  1,  CO2::Cell_1::Mitochondria_14,  1,  NADH_created::Cell_1::Mitochondria_14
+
+rM,    210::Cell_1::Mitochondria_14,  1,  Acetyl_CoA::Cell_1::Mitochondria_14,  3,  NAD+::Cell_1::Mitochondria_14,  1,  GDP::Cell_1::Mitochondria_14,  1,  Pi::Cell_1::Mitochondria_14,  3,  H2O::Cell_1::Mitochondria_14,  1,  FAD::Cell_1::Mitochondria_14
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_14,  3,  NADH::Cell_1::Mitochondria_14,  3,  H+::Cell_1::Mitochondria_14,  1,  GTP::Cell_1::Mitochondria_14,  2,  CO2::Cell_1::Mitochondria_14,  1,  FADH2::Cell_1::Mitochondria_14,  1,  FADH2_created::Cell_1::Mitochondria_14,  3,  NADH_created::Cell_1::Mitochondria_14
+                               
+r2_2,  220::Cell_1::Mitochondria_14,  1,  GTP::Cell_1::Mitochondria_14,  1,  ADP::Cell_1::Mitochondria_14,  1e1,  1,  GDP::Cell_1::Mitochondria_14,  1,  ATP::Cell_1::Mitochondria_14
+
+rM,    300::Cell_1::Mitochondria_14,  2,  NADH::Cell_1::Mitochondria_14,  22,  H+::Cell_1::Mitochondria_14,  1,  O2::Cell_1::Mitochondria_14,  1,  Commp1-3-4::Cell_1::Mitochondria_14
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_14,  20,  H+_inter::Cell_1::Mitochondria_14,  2,  H2O::Cell_1::Mitochondria_14,  1,  Commp1-3-4::Cell_1::Mitochondria_14,  2,  H2O_created::Cell_1::Mitochondria_14,  20,  H+_inter_created::Cell_1::Mitochondria_14
+
+rM,    310::Cell_1::Mitochondria_14,  2,  FADH2::Cell_1::Mitochondria_14, 12,  H+::Cell_1::Mitochondria_14,  1,  O2::Cell_1::Mitochondria_14,  1,  Commp2-3-4::Cell_1::Mitochondria_14
+             1e5
+             2,  FAD::Cell_1::Mitochondria_14,  12,  H+_inter::Cell_1::Mitochondria_14,  2,  H2O::Cell_1::Mitochondria_14,  1,  Commp2-3-4::Cell_1::Mitochondria_14,  2,  H2O_created::Cell_1::Mitochondria_14,  12,  H+_inter_created::Cell_1::Mitochondria_14
+
+rM,    320::Cell_1::Mitochondria_14,  12,  H+_inter::Cell_1::Mitochondria_14,  3,  ADP::Cell_1::Mitochondria_14,  3,  Pi::Cell_1::Mitochondria_14,  1,  ATP_synthase::Cell_1::Mitochondria_14
+             6e3
+             12,  H+::Cell_1::Mitochondria_14,  3,  ATP::Cell_1::Mitochondria_14,  1,  ATP_synthase::Cell_1::Mitochondria_14,  3,  ATP_created::Cell_1::Mitochondria_14
+
+rM,    400::Cell_1::Mitochondria_14,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_14,  1,  NADH_shuttle::Cell_1::Mitochondria_14
+             1e3
+             1,  NADH::Cell_1::Mitochondria_14,  1,  H+::Cell_1::Mitochondria_14,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_14,  1,  NADH_in::Cell_1::Mitochondria_14
+
+rM,    500::Cell_1::Mitochondria_14,  1,  Pi_transport::Cell_1::Mitochondria_14,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_14,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_14,  1,  Pi::Cell_1::Mitochondria_14,  1,  H+::Cell_1::Mitochondria_14,  1,  Pi_in::Cell_1::Mitochondria_14
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_14,  1,  ADP_ATP_transport::Cell_1::Mitochondria_14,  1,  ATP::Cell_1::Mitochondria_14,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_14,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_14
+
+r1_2,  700::Cell_1::Mitochondria_14,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_14,  1,  O2_in::Cell_1::Mitochondria_14
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_14,  H+::Cell_1::Mitochondria_14,  OH-::Cell_1::Mitochondria_14,  H2O_created::Cell_1::Mitochondria_14
+H+::Cell_1::Mitochondria_14,  H+_inter::Cell_1::Mitochondria_14,  OH-::Cell_1::Mitochondria_14
+H+_inter_created::Cell_1::Mitochondria_14,  ATP_created::Cell_1::Mitochondria_14
+Pyruvate-::Cell_1::Mitochondria_14,  Pyruvate-_in::Cell_1::Mitochondria_14,  O2::Cell_1::Mitochondria_14,  O2_in::Cell_1::Mitochondria_14
+ATP::Cell_1::Mitochondria_14,  ATP_created::Cell_1::Mitochondria_14
+ADP::Cell_1::Mitochondria_14,  Pi::Cell_1::Mitochondria_14,  Pi_in::Cell_1::Mitochondria_14
+CoA-SH::Cell_1::Mitochondria_14,  Acetyl_CoA::Cell_1::Mitochondria_14, 
+NAD+::Cell_1::Mitochondria_14,  GDP::Cell_1::Mitochondria_14,  FAD::Cell_1::Mitochondria_14
+NADH::Cell_1::Mitochondria_14,  GTP::Cell_1::Mitochondria_14,  FADH2::Cell_1::Mitochondria_14,  CO2::Cell_1::Mitochondria_14
+FADH2::Cell_1::Mitochondria_14,  FADH2_created::Cell_1::Mitochondria_14
+ATP_created::Cell_1::Mitochondria_14,   CO2::Cell_1::Mitochondria_14
+
+*Plot
+ATP_created::Cell_1::Mitochondria_14,   CO2::Cell_1::Mitochondria_14
+
+
+ 
+ 
+** ************************************ 
+*SetDefine, ::Cell_1::Mitochondria_15
+** ************************************ 
+** 2023.11.23 from Set02_mitochondria_812.txt
+** 2024.1.8 from Set02_mitochondria_517.txt
+** 2024.1.11 from Set02_517.txt
+** 2024.1.17 from Set02_523_09.txt
+** 2024.1.21 from Set02_525_11.txt
+** from figure_4C_35.txt
+
+*Element
+H2O::Cell_1::Mitochondria_15,             1e11,  Blue,  4
+H2O_created::Cell_1::Mitochondria_15,        0,  hotpink,  3
+OH-::Cell_1::Mitochondria_15,              1e3,  darkturquoise,  2
+H+::Cell_1::Mitochondria_15,               1e3,  deeppink,  3
+H+_inter::Cell_1::Mitochondria_15,           0,  hotpink,  3
+H+_inter_created::Cell_1::Mitochondria_15,   0,  pink,  *
+O2::Cell_1::Mitochondria_15,                 0,  red,  3
+O2_in::Cell_1::Mitochondria_15,              0,  darkmagenta,  x
+CO2::Cell_1::Mitochondria_15,                0,  tomato,   *
+ATP::Cell_1::Mitochondria_15,                0,  DeepPink,  4
+ATP_created::Cell_1::Mitochondria_15,        0,  lime,  2
+ADP::Cell_1::Mitochondria_15,              1e8,  LightPink,  |
+GDP::Cell_1::Mitochondria_15,              1e8,  mediumspringgreen,  4
+GTP::Cell_1::Mitochondria_15,                0,  sienna,  4
+Pi::Cell_1::Mitochondria_15,               2e8,  BlueViolet,  _
+Pi_in::Cell_1::Mitochondria_15,              0,  Violet,  *
+NAD+::Cell_1::Mitochondria_15,             1e8,  Orange,  s
+NADH::Cell_1::Mitochondria_15,               0,  chocolate,  +
+NADH_created::Cell_1::Mitochondria_15,       0,  red,  +
+NADH_in::Cell_1::Mitochondria_15,            0,  blue,  +
+Pyruvate-::Cell_1::Mitochondria_15,          0,  green,  H
+Pyruvate-_in::Cell_1::Mitochondria_15,       0,  black,  .
+CoA-SH::Cell_1::Mitochondria_15,           1e8,  MediumOrchid,  +
+Acetyl_CoA::Cell_1::Mitochondria_15,         0,  green,  3
+FAD::Cell_1::Mitochondria_15,              1e8,  magenta,  p
+FADH2::Cell_1::Mitochondria_15,              0,  yellowgreen,  2
+FADH2_created::Cell_1::Mitochondria_15,      0,  green,  2
+
+Pyruvate_transport::Cell_1::Mitochondria_15,  1000,  darkgreen,  H
+ATP_synthase::Cell_1::Mitochondria_15,        1000,  RosyBrown,   .
+ADP_ATP_transport::Cell_1::Mitochondria_15,     1000,  LightGreen,  .
+NADH_shuttle::Cell_1::Mitochondria_15,      1000,   cyan,  p
+Pi_transport::Cell_1::Mitochondria_15,          1000,  magenta,  3
+Commp1-3-4::Cell_1::Mitochondria_15,        1000,  dodgerblue,  * 
+Commp2-3-4::Cell_1::Mitochondria_15,        1000,  dodgerblue,  * 
+
+*Reaction,  1e11
+r1_2,   10::Cell_1::Mitochondria_15,  1,  H2O::Cell_1::Mitochondria_15,          1e-6,  1,  H+::Cell_1::Mitochondria_15,  1,  OH-::Cell_1::Mitochondria_15
+r2_1,   20::Cell_1::Mitochondria_15,  1,  H+::Cell_1::Mitochondria_15,  1,  OH-::Cell_1::Mitochondria_15,  1e4,  1,  H2O::Cell_1::Mitochondria_15
+
+rM,    100::Cell_1::Mitochondria_15,  1,  Pyruvate_transport::Cell_1::Mitochondria_15,  1,  Pyruvate-:=Cell_1,  1,  H+:=Cell_1
+             1e5
+             1,  Pyruvate_transport::Cell_1::Mitochondria_15,  1,  Pyruvate-::Cell_1::Mitochondria_15,  1,  H+::Cell_1::Mitochondria_15,  1,  Pyruvate-_in::Cell_1::Mitochondria_15
+
+rM,    200::Cell_1::Mitochondria_15,  1,  Pyruvate-::Cell_1::Mitochondria_15,  1,  CoA-SH::Cell_1::Mitochondria_15,  1,  NAD+::Cell_1::Mitochondria_15
+             1e3
+             1,  Acetyl_CoA::Cell_1::Mitochondria_15,  1,  NADH::Cell_1::Mitochondria_15,  1,  H+::Cell_1::Mitochondria_15,  1,  CO2::Cell_1::Mitochondria_15,  1,  NADH_created::Cell_1::Mitochondria_15
+
+rM,    210::Cell_1::Mitochondria_15,  1,  Acetyl_CoA::Cell_1::Mitochondria_15,  3,  NAD+::Cell_1::Mitochondria_15,  1,  GDP::Cell_1::Mitochondria_15,  1,  Pi::Cell_1::Mitochondria_15,  3,  H2O::Cell_1::Mitochondria_15,  1,  FAD::Cell_1::Mitochondria_15
+             1e3 
+             1,  CoA-SH::Cell_1::Mitochondria_15,  3,  NADH::Cell_1::Mitochondria_15,  3,  H+::Cell_1::Mitochondria_15,  1,  GTP::Cell_1::Mitochondria_15,  2,  CO2::Cell_1::Mitochondria_15,  1,  FADH2::Cell_1::Mitochondria_15,  1,  FADH2_created::Cell_1::Mitochondria_15,  3,  NADH_created::Cell_1::Mitochondria_15
+                               
+r2_2,  220::Cell_1::Mitochondria_15,  1,  GTP::Cell_1::Mitochondria_15,  1,  ADP::Cell_1::Mitochondria_15,  1e1,  1,  GDP::Cell_1::Mitochondria_15,  1,  ATP::Cell_1::Mitochondria_15
+
+rM,    300::Cell_1::Mitochondria_15,  2,  NADH::Cell_1::Mitochondria_15,  22,  H+::Cell_1::Mitochondria_15,  1,  O2::Cell_1::Mitochondria_15,  1,  Commp1-3-4::Cell_1::Mitochondria_15
+             1e5
+             2,  NAD+::Cell_1::Mitochondria_15,  20,  H+_inter::Cell_1::Mitochondria_15,  2,  H2O::Cell_1::Mitochondria_15,  1,  Commp1-3-4::Cell_1::Mitochondria_15,  2,  H2O_created::Cell_1::Mitochondria_15,  20,  H+_inter_created::Cell_1::Mitochondria_15
+
+rM,    310::Cell_1::Mitochondria_15,  2,  FADH2::Cell_1::Mitochondria_15, 12,  H+::Cell_1::Mitochondria_15,  1,  O2::Cell_1::Mitochondria_15,  1,  Commp2-3-4::Cell_1::Mitochondria_15
+             1e5
+             2,  FAD::Cell_1::Mitochondria_15,  12,  H+_inter::Cell_1::Mitochondria_15,  2,  H2O::Cell_1::Mitochondria_15,  1,  Commp2-3-4::Cell_1::Mitochondria_15,  2,  H2O_created::Cell_1::Mitochondria_15,  12,  H+_inter_created::Cell_1::Mitochondria_15
+
+rM,    320::Cell_1::Mitochondria_15,  12,  H+_inter::Cell_1::Mitochondria_15,  3,  ADP::Cell_1::Mitochondria_15,  3,  Pi::Cell_1::Mitochondria_15,  1,  ATP_synthase::Cell_1::Mitochondria_15
+             6e3
+             12,  H+::Cell_1::Mitochondria_15,  3,  ATP::Cell_1::Mitochondria_15,  1,  ATP_synthase::Cell_1::Mitochondria_15,  3,  ATP_created::Cell_1::Mitochondria_15
+
+rM,    400::Cell_1::Mitochondria_15,  1,  NADH:=Cell_1,  1,  H+:=Cell_1,  1,  NAD+::Cell_1::Mitochondria_15,  1,  NADH_shuttle::Cell_1::Mitochondria_15
+             1e3
+             1,  NADH::Cell_1::Mitochondria_15,  1,  H+::Cell_1::Mitochondria_15,  1,  NAD+:=Cell_1,  1,  NADH_shuttle::Cell_1::Mitochondria_15,  1,  NADH_in::Cell_1::Mitochondria_15
+
+rM,    500::Cell_1::Mitochondria_15,  1,  Pi_transport::Cell_1::Mitochondria_15,  1,  Pi:=Cell_1,  1,  H+_inter::Cell_1::Mitochondria_15,  
+             1e2
+             1,  Pi_transport::Cell_1::Mitochondria_15,  1,  Pi::Cell_1::Mitochondria_15,  1,  H+::Cell_1::Mitochondria_15,  1,  Pi_in::Cell_1::Mitochondria_15
+
+
+# oxtative phosphorylation from Cooper p67
+rM,    600::Cell_1::Mitochondria_15,  1,  ADP_ATP_transport::Cell_1::Mitochondria_15,  1,  ATP::Cell_1::Mitochondria_15,  1,  ADP:=Cell_1
+             1e4
+             1,  ADP_ATP_transport::Cell_1::Mitochondria_15,  1,  ATP:=Cell_1,  1,  ADP::Cell_1::Mitochondria_15
+
+r1_2,  700::Cell_1::Mitochondria_15,  1,  O2:=Cell_1,  10,  1,  O2::Cell_1::Mitochondria_15,  1,  O2_in::Cell_1::Mitochondria_15
+
+
+*Plot,  log
+H2O::Cell_1::Mitochondria_15,  H+::Cell_1::Mitochondria_15,  OH-::Cell_1::Mitochondria_15,  H2O_created::Cell_1::Mitochondria_15
+H+::Cell_1::Mitochondria_15,  H+_inter::Cell_1::Mitochondria_15,  OH-::Cell_1::Mitochondria_15
+H+_inter_created::Cell_1::Mitochondria_15,  ATP_created::Cell_1::Mitochondria_15
+Pyruvate-::Cell_1::Mitochondria_15,  Pyruvate-_in::Cell_1::Mitochondria_15,  O2::Cell_1::Mitochondria_15,  O2_in::Cell_1::Mitochondria_15
+ATP::Cell_1::Mitochondria_15,  ATP_created::Cell_1::Mitochondria_15
+ADP::Cell_1::Mitochondria_15,  Pi::Cell_1::Mitochondria_15,  Pi_in::Cell_1::Mitochondria_15
+CoA-SH::Cell_1::Mitochondria_15,  Acetyl_CoA::Cell_1::Mitochondria_15, 
+NAD+::Cell_1::Mitochondria_15,  GDP::Cell_1::Mitochondria_15,  FAD::Cell_1::Mitochondria_15
+NADH::Cell_1::Mitochondria_15,  GTP::Cell_1::Mitochondria_15,  FADH2::Cell_1::Mitochondria_15,  CO2::Cell_1::Mitochondria_15
+FADH2::Cell_1::Mitochondria_15,  FADH2_created::Cell_1::Mitochondria_15
+ATP_created::Cell_1::Mitochondria_15,   CO2::Cell_1::Mitochondria_15
+
+*Plot
+ATP_created::Cell_1::Mitochondria_15,   CO2::Cell_1::Mitochondria_15
+
+

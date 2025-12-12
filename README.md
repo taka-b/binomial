@@ -9,9 +9,9 @@
     This software is released under the MIT License. http://opensource.org/licenses/mit-license.php*/
 
 
-0. Description
+1. Overview
 
-0.1. Overview:
+1.1. Concept:
   This program provides Natural Number Simulation (NNS) for analyzing complex reaction systems. 
   The numbers in this calculation represent quantities such as the number of molecules, cells, or living individuals, 
   with all numbers being natural numbers including zero. The program includes a time evolution algorithm to compute these natural numbers. 
@@ -19,7 +19,7 @@
   NNS simulates chemical reaction systems and mathematical models through random natural number calculations based on binomial probabilities. 
   This program enables straightforward model definition through its non-halting calculation algorithm. 
 　
-0.2. Simulation:
+1.2. Simulation:
 　The program can simulate the time evolution of the "number" of molecules in reaction systems such as:
 　
   lA + mB + nC　+ - - -   → 　sX + tY + uZ + - - - 
@@ -29,60 +29,91 @@
   and stoichiometric quantities simultaneously for any number of stoichiometric equations.
 
 
-0.3. Categories:
+1.3. Categories:
   Complex Systems, Systems Biology, Bioinformatics, A-life, Simulation
  
 
-1. File Structure
+2. File Structure
 
   This program consists of nine Python files and one JSON file. 
   These files are collectively referred to as program files. 
   Additionally, one input file is required to run the program.
 
-  1.1. binomial_v018.py (Main Program)
+2.1. Program Files
+
+  * binomial_v018_02.py (Main Program)
     This is the main code that includes the process of reading the input file and executing calculations.
 
-  1.2. binomial_parameters_06.json
+  * binomial_parameters_11.json
     This file contains parameters that determine the conditions for the calculations and the settings for the results.
 
-  1.3. element_41.py
+  * element_43.py
     This code defines the calculation elements. Element objects are created based on the element names and 
     initial quantities defined in the *Element section of the input file.
 
-  1.4. reaction_77.py
+  * reaction_83.py
     This code is used to calculate the reaction equations. 
     The reaction equations are defined in the *Reaction section of the input file.
 
-  1.5. utility_69.py
+  * utility_78.py
     This file contains utility-related code for outputting result graphs and CSV files.
 
-  1.6. setting_35.py
+  * setting_39.py
     This code is related to reading the input file.
 
-  1.7. utility_functions_02.py
+  * utility_functions.py
     This file contains functions necessary for the settings.
 
-  1.8. polymer_13.py
-    Under construction.
+  * polymer_13.py
+    Under construction, not required for the simulations in the paper.
 
-  1.9. reactionManage_07.py
-    Under construction.
+  * reactionManage_07.py
+    Under construction, not required for the simulations in the paper.
 
-  1.10. setManage_02.py
-    Under construction.
+  * setManage_04.py
+    Under construction, not required for the simulations in the paper.
 
-  These codes were developed using Spyder IDE 5.4.3 on Ubuntu 22.04.2 LTS as of Junuary 2025. 
+  These codes were developed using Spyder IDE 5.4.3 on Ubuntu 22.04.2 LTS as of January 2025. 
   They are compatible with both Windows and Linux (some input files are Linux-only).
  
-2. Folder Preparation
+
+2.2. Directory Preparation
 
   Create a single main folder. Inside this main folder, create a folder for the program and 
   store the aforementioned program files in it. Additionally, create another folder within the main folder for input files, 
-  and store your input files there (refer to Figure 1 in Readme_v018_Figuers.pdf). 
+  and store your input files there (refer to Figure 1 in Readme_v018_02_Figuers.pdf). 
   You may create as many input-file folders as you wish, but please ensure not to create multiple input files with the same name.
+
+
+3. How to Run the Program
+
+  Two execution processes are available. 
+  One is running the program directly from Spyder, and the other is running it from the command line.
+
+3.1. Spyder
+        
+  One way to run the program is to use Spyder with Anaconda3. Open the main program file binomial_v018_02.py in Spyder. 
+  Enter the input file name on the appropriate line as follows. 
+  Since fName is already specified in the main program, replace it with your desired file name.         
+               
+      input_file ="inp_immune_323.txt"
+         
+  Execute the calculation using Spyder's "Run File" command. 
+  Result files will be placed in a newly created folder within the folder containing the input file.
+          
+3.2. Command Line / Terminal
+
+  The folder preparation is the same as in the Spyder case. 
+  Open a terminal (e.g., Anaconda Powershell Prompt) and change the directory to the one containing the program file. 
+  Enter the following command in the terminal:           
+
+      > python binomial_v018_02.py inp_immune_323.txt
+                  
+  Press Enter to start the program. Result files will be placed in a newly created folder, similar to the Spyder case.
+
 　　
 
-3. Input File Structure 1
+4. Input File Format 1
 
   This program can be executed by preparing the program files mentioned above along with a single input file. 
   The input file should be a plain text file with a .txt extension and should include four sections: *Time, *Element, *Reaction, and *Plot. 
@@ -91,7 +122,7 @@
   Note that in all cases below, ** and # indicate comment lines.
 
    
-3.1. *Time
+4.1. *Time
 
   Here, you should write the start and end times, as well as set the intervals for console output, plot output, CSV file output, 
   and specify the unit. Only natural numbers, including 0, are available for these values. Calculations are executed at each unit interval. 
@@ -109,7 +140,7 @@
            ** start, end, console out interval, plot out interval, CSV time interval, time unit
            0, 14400, 1440, 7200, 1440,  min
 
-3.2 *Element
+4.2 *Element
 
   This section is for describing the elements you want to simulate. 4
   At a minimum, you need to specify the element's name and its initial count. 
@@ -141,14 +172,14 @@
            macrophage,         5000, 
            macrophageActive,      0,
            macrophageWithVirus,   0, 
-           dendricCell,        2000, Blue,  
+           dendriticCell,        2000, Blue,  
            dendricMHC,            0, Red,  
            naiveTh1,          1.1e4, Green
            activeTh1,             0, 
            IFN,                   0, Blue
            IL-12,                 0
           
-3.3. *Reaction
+4.3. *Reaction
 
   This section defines the reactions between the elements mentioned above, or reactions involving individual elements. 
   Various types of reactions are available for use, as shown below. 
@@ -238,19 +269,19 @@
                         0.9, 
                         1, macrophageWithVirus, 10, IFN, 10, IL-12
            r1_1, 005,   1, macrophageWithVirus, 0.1, 1, macrophage
-           r2_1, 006,   1, virus, 1, dendricCell, 10, 1, dendricMHC
+           r2_1, 006,   1, virus, 1, dendriticCell, 10, 1, dendricMHC
            rM,   007,   1, naiveTh1, 1, dendricMHC, 10, IFN, 10, IL-12
                         10000,
                         1, activeTh1, 1, dendricMHC
            r1_2, 013,   1, activeTh1, 1, 10, IFN, 1, activeTh1
            r2_1, 014,   1, macrophage, 2, IFN, 10, 1, macrophageActive 
            r2_1, 015,   1, macrophageActive, 10, virus, 1, 1, macrophageWithVirus
-           r1_1, 018,   1, dendricMHC, 0.0002, 1, dendricCell
+           r1_1, 018,   1, dendricMHC, 0.0002, 1, dendriticCell
            r1_1, 019,   1, macrophageActive, 0.002, 1, macrophage
            r1_1, 020,   1, activeTh1, 0.001, 1, naiveTh1
            r1_0, 021,   1, IFN, 0.01
 
-3.4. *Plot
+4.4. *Plot
 　　　　
  In this section, you define the plotting conditions. 
  Elements written on the same line will be displayed in a single graph. 
@@ -273,11 +304,11 @@
            virus, virusCell, macrophageWithVirus
            cell, virusCell
            macrophage, macrophageActive, macrophageWithVirus
-           dendricMHC, dendricCell
+           dendricMHC, dendriticCell
            IFN, IL-12
            activeTh1, naiveTh1
            
-3.5. binomial_parameter_06.json
+4.5. binomial_parameter_06.json
 
   In this file, you set parameters for CSV file output and figure generation. 
   For "YES" or "NO" options, please select one. For file outputs, if "YES" is selected, 
@@ -325,18 +356,18 @@
     "Optimization":     ["YES" or "NO"], For now, please select "NO."
 
 
-4. Input File Structure 2 (Optional Settings) (e.g., test_059.txt)
+5. Optional Features (ElementInOut, Set_01 / Set_02)
 
-4.1. *ElementInOut
+5.1. *ElementInOut
 
 The *ElementInOut setting is available to represent the inflow and outflow of elements in the computational domain.  
 This allows the representation of element inflow and outflow during the calculation process.
 
     Format:    
       *ElementInOut
-      element name, initial number, plot color, marker, <brank>, type-0, at time, amaunt, at time, amaunt, -> -> 
-      element name, initial number, plot color, marker, <brank>, type-1, interval, amaunt
-      element name, initial number, plot color, marker, <brank>, type-2, const, amplitude, period-time, add-interval
+      element name, initial number, plot color, marker, <blank>, type-0, at time, amount, at time, amount, -> -> 
+      element name, initial number, plot color, marker, <blank>, type-1, interval, amount
+      element name, initial number, plot color, marker, <blank>, type-2, const, amplitude, period-time, add-interval
            --- --- --- 
            --- --- ---   
         
@@ -348,7 +379,7 @@ This allows the representation of element inflow and outflow during the calculat
       B,        0,  purple, 2, , type-2, 100, 10, 10,  50
 
 
-5. Input File Structure 3 (Optional Settings) (e.g., Set_405.txt)
+5.2. Input File Structure 3 (Optional Settings) (e.g., Set_405.txt)
 
   This section describes the method for formulating the exchange of molecules and reactions 
   within cells and intracellular organelles using the concept of sets. 
@@ -365,7 +396,7 @@ This allows the representation of element inflow and outflow during the calculat
   As shown below, each hierarchical level requires one or more input files. These files are combined to create a new input file, 
   which is eventually read to start the calculations.
 
-5.1. *Set_01
+5.3. *Set_01
   
   To define the first-level region, add the following lines to the input file.
 
@@ -382,7 +413,7 @@ This allows the representation of element inflow and outflow during the calculat
   However, to distinguish them from the global region, you should generally append ":=" after the element names and reaction-specific names. 
   Therefore, it is standard to include ":=" after the element names in the *Plot definitions as well.
 
-5.2. *Set_02
+5.4. *Set_02
 
   To define the second-level region, add the following lines to the input file.
 
@@ -400,7 +431,7 @@ This allows the representation of element inflow and outflow during the calculat
   you should generally append "::" after the element names and reaction-specific names. 
   Therefore, it is standard to include "::" after the element names in the *Plot definitions as well.
 
-5.3. Examples of Each File
+5.5. Examples of Each File
 
   An example is shown in Figure 4. The global region file is named Set_401.txt. 
   Below is an example where there is one Set_01 region within the global region, and within that, there is one Set_02 region. 
@@ -416,7 +447,7 @@ This allows the representation of element inflow and outflow during the calculat
   Please note that a and a:= in Figure 4 represent the same substance, but the name changes due to the movement between regions. 
   Figure 5 schematically shows the movement reactions of each element in the following files.
 
-5.3.1. Set_401.txt
+5.6. Set_401.txt
    
   Two nested regions are defined using *Set_01 and *Set_02.
 
@@ -445,7 +476,7 @@ This allows the representation of element inflow and outflow during the calculat
       *Plot, log
        a, b, c, r
 
-5.3.2. Set01_401.txt
+5.7. Set01_401.txt
    
   Elements, reactions, and plots within Set_01 are defined, with ":=" appended to their names. 
   Membrane protein elements like mem_P1:= and mem_P2:= are defined, 
@@ -499,7 +530,7 @@ This allows the representation of element inflow and outflow during the calculat
       *Plot
        en_X:=, en_Z:=, mem_P1:=, mem_P2:=, mem_P6:=  
 
-5.3.3. Set02_401.txt
+5.8. Set02_401.txt
 
   Elements, reactions, and plots within Set_02 are defined, with "::" appended to their names. 
   Here, mem_P3:: is defined as a membrane protein element and acts as a co-transporter in reaction 100::, 
@@ -544,7 +575,7 @@ This allows the representation of element inflow and outflow during the calculat
       *Plot
        en_Y::, mem_P3::, mem_P4::, mem_P5::
 
-5.3.4. Composite input file (Set_401_new.txt)
+5.9. Composite input file (Set_401_new.txt)
 
   When the input file for the global region is read, the files for each region are also read, 
   and a composite file is created. For example, for Set_401.txt, a file named Set_401_new.txt is generated. 
@@ -656,7 +687,7 @@ This allows the representation of element inflow and outflow during the calculat
        en_Y::C1_1::M1_1,  mem_P3::C1_1::M1_1,  mem_P4::C1_1::M1_1,  mem_P5::C1_1::M1_1
 
 
-5.3.5. When Multiple Regions Exist (Set_402.txt)
+5.10. When Multiple Regions Exist (Set_402.txt)
 
   Here, we explain the case where multiple regions exist within the global region. 
   The Set_402.txt file shown below is an example where there are two types of regions, with two and three of each type within Set_01, 
@@ -712,34 +743,7 @@ This allows the representation of element inflow and outflow during the calculat
        M2, C2, 3, Set02_402_02.txt, 1   
 
 
-6. Running the Program
-
-  Two execution processes are available. 
-  One is running the program directly from Spyder, and the other is running it from the command line.
-
-6.1. Spyder
-        
-  One way to run the program is to use Spyder with Anaconda3. Open the main program file binomial_v017.py in Spyder. 
-  Enter the input file name on the appropriate line as follows. 
-  Since fName is already specified in the main program, replace it with your desired file name.         
-               
-      input_file ="inp_immune_323.txt"
-         
-  Execute the calculation using Spyder's "Run File" command. 
-  Result files will be placed in a newly created folder within the folder containing the input file.
-          
-6.2. Command Line / Terminal
-
-  The folder preparation is the same as in the Spyder case. 
-  Open a terminal (e.g., Anaconda Powershell Prompt) and change the directory to the one containing the program file. 
-  Enter the following command in the terminal:           
-
-      > python binomial_v017.py inp_immune_323.txt
-                  
-  Press Enter to start the program. Result files will be placed in a newly created folder, similar to the Spyder case.
-
-
-7. Result Files
+6. Output Files
 
   The result files folder is created in the same directory as the input file. For example:
 
@@ -755,7 +759,14 @@ This allows the representation of element inflow and outflow during the calculat
     inp_immune_323_probability.csv：It outputs the variables "n" and "p" provided to `random.binomial(n, p)`, which returns random integers.
 
 
-8. literature
+7. License
+
+This software is released under the MIT License.  
+Copyright (c) 2022–2025 Takashi Sato  
+See the LICENSE file for the full license text.
+
+
+8. References
 
 [1] bioRxiv:「Application of a Novel Numerical Simulation to Biochemical Reaction systems」
 　　 Takashi Sato, doi: https://doi.org/10.1101/2023.08.10.552732
