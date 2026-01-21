@@ -28,53 +28,42 @@ import utility_functions as uf
 
 json_file = "binomial_parameters_11.json"
 
-# from reactions import perform_reactions
-# input_file = "System-3.txt"
-# input_file = "gpt_glycolysis_04.txt"Z
-# input_file = "particle_205_10.txt"
-# input_file = "inp_bind_002.txt"
-# input_file = "cancer_028_25.txt"                    # 2025.3.5
-# input_file = "Logistic_test15_06.txt"          
-# input_file = "Set_cell_mito_543.txt"                          # 2024.1.21
-# input_file = "Set_polyamine_073_o19_best.txt"                         # 2024.10.3
-# input_file = "amino_pool_02.txt"                         # 2024.10.3
-# input_file = "cardiac_014_07.txt"                             # 2024.1.31
-# input_file = "Set_Ecoli_008.txt"                              # 2024.5.5
-# input_file = "Cell_015.txt"                                   # 2024.7.28
-# input_file = "Logistic_test08_11_8.txt"
-# input_file = "Set_Ecoli_ploliferation_010.txt"                # 2024.6.2
-# input_file = "membrane_2025_016.txt"
-# input_file = "Set_414.txt"                               # 2025.1.8
-# input_file = "phosphate_032.txt"                              # 2023.6.12
-# input_file = "nurve_001.txt"                             # 2025.1.8
-# input_file = "inp_exponential_118.txt"           # 2025.4.3
+# === Input_files_01 ===
+# input_file = "inp_bind_001.txt"    
+# input_file = "inp_bind_002.txt"          
+# input_file = "inp_feedback_408.txt"                          # 2024.1.21
+# input_file = "inp_feedforward_010.txt"                       # 2024.5.5
+# input_file = "inp_Michaelis_Menten kinetics_003.txt"
 
-# input_file = "earth_018_for_paper.txt"
-# input_file = "inp_feedback_408.txt"
-# input_file = "inp_feedforward_011.txt"
-# input_file = "Set_test_A_24.txt"
-# input_file = "human_306.txt"       
+# === Input_files_02 ===
+# input_file = "inp_autocatalytic_111.txt"                      # 2024.7.28
+# input_file = "inp_exponential_401.txt"                        # 2025.4.3
 # input_file = "inp_immune_323.txt"
-# input_file = "inp_circadian_026.txt"
-# input_file = "Set_polyamine_063_o10_best1.txt"
-# input_file = "Lotka-Volterra_623_27.txt"
-# input_file = "inp_polymer_237.txt"
-# input_file = "inp_autocatalytic_111.txt"
-input_file = "figure_4A_35_30.txt"
+# input_file = "inp_Glycolysis_115.txt"
+# input_file = "inp_oscillation_010.txt"
+# input_file = "inp_SIR_012.txt"
+# input_file = "test_059.txt"
 
-# Use Linux version Python for calculationg
-# input_file = "inp_bind_002.txt"
-# input_file = "H2O_007.txt"
-# input_file = "inp_Michaelis_Menten_kinetics_003.txt"
+# === Input_files_03 ===
+input_file = "Lotka-Volterra_211_034_03.txt"
+
+# ================================
+# From this point onward, the Linux version of Python is recommended for calculations
+# ================================
+
+# === Input file for the published results (Figure 4A) ===
+input_file = "figure_4A_70.txt"
+
+# === Input_files_01 ===
 # input_file = "inp_MWC-allosteric_016_02.txt"
-# input_file = "inp_virus_100.txt"
-# input_file = "Set_cell_mito_517.txt"
-# input_file = "Channel_007_04.txt"
-# input_file = "Channel_pump_005.txt"
+
+
+# === Input_files_03 ===
 # input_file = "Channel_pump_007.txt"
-# input_file = "Set_cell_Lacto_005.txt"
-# input_file = "inp_SIR_012_03.txt"
-# input_file = "test_060.txt"
+# input_file = "Set_405.txt"                                    # 2025.1.8
+# input_file = "phosphate_032.txt"                              # 2023.6.12
+
+
 
 def change_directory_to_inputFile(filename):
     os.chdir('..')
